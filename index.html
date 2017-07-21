@@ -1,0 +1,13 @@
+---
+layout: default
+title: {{ site.name }}
+---
+
+<div id="home">
+  <h1>Lectures</h1>
+  <ul class="lectures">
+    {% for lecture in site.lectures %}
+      <li><a href="{{ site.baseurl }}{{ lecture.url }}">{{ lecture.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

@@ -1,1 +1,18 @@
-theme: jekyll-theme-cayman
+# Setup
+title:        "CPEN 333: System Software Engineering"
+tagline:      "Course material"
+baseurl:      ""
+
+# About/contact
+author:
+  name:       Antonio Sanchez
+  url:        
+
+#Others
+markdown: kramdown
+
+# Custom
+collections:
+  lectures:
+    output: true
+    permalink: /:collection/:path/
