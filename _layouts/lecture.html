@@ -8,9 +8,9 @@ layout: default
 {% if lecture.authors == blank %}
   <span class="copyright">Copyright (c) 2017, "{{ site.author }}"</span>
 {% else %}
-  <span class="copyright">Copyright (c) 2017 -- {{ lecture.authors }}
-  {% for author in lecture.authors %}
-    , {{ author }}
+  <span class="copyright">Copyright (c) 2017 -- {{ lectures.authors }}
+  {% for author in lectures.authors %}
+    ", {{ author }}"
   {% endfor %}
   </span>
 {% endif %}

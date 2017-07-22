@@ -1,11 +1,11 @@
 # Setup
 title:        "CPEN 333: System Software Engineering"
-tagline:      "Lectures and course material for CPEN 333 -- System Sofware Engineering, Department of Electrical and Computer Engineering, University of British Columbia."
+tagline:      "Lectures and course material for CPEN 333: System Sofware Engineering, Department of Electrical and Computer Engineering, University of British Columbia."
 baseurl:      ""
 
 # About/contact
 author:
-  name:       Antonio Sanchez
+  name:       C. Antonio Sánchez
   url:        
 
 #Others

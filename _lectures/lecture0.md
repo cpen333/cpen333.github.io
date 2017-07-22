@@ -777,6 +777,8 @@ int main() {
 ```
 Even though `Dog` didn't explicitly declare `speak()` as virtual, it was still overridden by `ScoobyDoo`'s version.  The method remains virtual because `Animal` declared it as such.
 
+**Bottom line:** if you're planning to override a function (which is usually by design), declare it as `virtual` in the base class.  That way, any class that overrides it is guaranteed to call its own version, regardless of how that variable is accessed.
+
 Don't get too hung up on some of these details if it sounds a little complicated.  This whole document gives quite a bit of background (though incomplete) to C\+\+.   We don't emphasize half as much of this in CPEN 333 as you might think, but it is useful to know the background.  So please try to read through it, but don’t agonise over it if you don't get it 1st, 2nd or even 3rd time through.  As with everything, these concepts will become more natural to you with practice, so... practice, practice, practice.
 
 
