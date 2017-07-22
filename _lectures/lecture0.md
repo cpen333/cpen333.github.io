@@ -2,13 +2,21 @@
 layout: lecture
 title:  Introduction to C++
 date:   2017-07-12 17:50:00
-categories: [lectures, c++, object oriented]
 authors: [Paul Davies, C. Antonio Sánchez]
+categories: [lectures, c++, object oriented]
+
 ---
 
 # Introduction to C\+\+
 
 **Authors:** Paul Davies (UBC), C. Antonio Sánchez (UBC)
+
+<div class="toc-title">
+Contents:
+</div>
+
+* TOC
+{:toc template=page}
 
 ## Learning Goals
 
@@ -122,7 +130,7 @@ Namespaces give us further control for grouping sets of related variables and fu
 
 **Object Oriented Programming** (OOP) takes these *private* and *encapsulation* concepts one step further.
 
-# Classes
+## Classes
 
 *Classes* are a great way of grouping together related variables and functions into one place.  They are devined using the `class` keyword, with the following syntax:
 ```cpp
@@ -156,7 +164,7 @@ declares a class (i.e. a new *data type*, like `int` or `float`) called `Rectang
 
 Because `width` and `height` are `private`, only the member functions `setValues(...)` and `getArea()` are allowed to access them.  Nobody else can even see that the variables exist.  The member functions are `public`, so anybody can call/use them to indirectly get at and manipulate the width and height.
 
-## Creating an Object from a class
+### Creating an Object from a class
 
 An **object** is an *instance* of a class.  By analogy with traditional variables, a `class` introduces a new *data type*, which an **abject** would be the *variable* of a given data type.  For example we might declare instances of an integer variable
 ```cpp
@@ -299,10 +307,6 @@ In an example as simple as this, it's hard to see how restricting access to the 
 Ideally, objects present their external *interfaces* to the outside world (i.e. their *public* member functions) that will allow others to *get* and *set* the member variables in a way that is appropriate.  For example, you may wish to restrict rectangle widths and heights to be positive numbers.  We also don't want users of an object to write code that is dependent on knowing the internal details of an object.  For example, just like driving a car, you use the interfaces provided by the car designer (e.g. brakes, accelerator, steering wheel, etc.) and manipulate the car via those interfaces.  You don't need to know how the car actually *works* to drive; that is hidden and only of concer to the designer, not the user.
 
 Furthermore, if all cars provide the same interfaces (as they generally do), then one car should be interchangeable with another from the user's perspective.  The car designer is free to change things like the type of engine, without affecting us users who only interact with the car through the interfaces, not the implementation.
-
-#### Exercise:
-- write two member functions to allow the outside-world to get (i.e. return) the values of the variables `width` and `height`
-- write two member functions to allow users to change the width and height independently
 
 ### Constructors
 
@@ -597,7 +601,7 @@ int main() {
   p1 = &r1;              // make p1 point to object r1
 
   std::printf("r1’s area = %d\n", r1.getArea() );  // print area using r1 directly
-  std::printf("r1’s area = %d\n”, p1->getArea() ); // print area indirectly using pointer p1
+  std::printf("r1’s area = %d\n", p1->getArea() ); // print area indirectly using pointer p1
 
     return 0;
 }
@@ -660,7 +664,7 @@ For example, let's imagine a simple series of classes to describe two kinds of p
 
 This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Rectangle` and `Triangle`:
 
-![polygon inheritance](images/polygon_inheritance.png)
+![polygon inheritance]({{ site.url }}/images/polygon_inheritance.png)
 
 The `Polygon` (our **base**) class would contain the member variables and functions that are common for both rectangles and triangles, in our case the variables `width` and `height`.  `Rectangle` and `Triangle` would be new *derived* classes, with specific features that are unique to each type of polygon.
 

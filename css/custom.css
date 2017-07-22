@@ -1,0 +1,13 @@
+#markdown-toc {
+	border: 1px solid #a2a9b1;
+	background-color: #f8f9fa;
+	font-size: 80%;
+	margin-top: -1px;
+	padding: 10px 10px 10px 40px;
+}
+
+.toc-title {
+	border: 1px solid #a2a9b1;
+	padding: 1ex;
+	font-weight: bold;
+}

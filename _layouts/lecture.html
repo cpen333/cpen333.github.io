@@ -2,17 +2,37 @@
 layout: default
 ---
 
+<div class="PageNavigation">
+  {% if page.previous.url %}
+    <a class="prev" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+  {% else %}
+    <a class="home" href="{{site.url}}">&laquo; Lectures</a>
+  {% endif %}
+  {% if page.next.url %}
+    <a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+  {% endif %}
+</div>
+<br/>
+
 {{ content }}
 
+<br/><br/>
+<div class="PageNavigation">
+  {% if page.previous.url %}
+    <a class="prev" href="{{page.previous.url}}">&laquo; {{page.previous.title}}</a>
+  {% else %}
+    <a class="home" href="{{site.url}}">&laquo; Lectures</a>
+  {% endif %}
+  {% if page.next.url %}
+    <a class="next" href="{{page.next.url}}">{{page.next.title}} &raquo;</a>
+  {% endif %}
+</div>
 <br/>
-{% if lecture.authors == blank %}
-  <span class="copyright">Copyright (c) 2017, "{{ site.author }}"</span>
+
+{% if page.authors == nil %}
+  <span class="copyright">Copyright (c) 2017 - {{ site.author.name }} </span>
 {% else %}
-  <span class="copyright">Copyright (c) 2017 -- {{ lectures.authors }}
-  {% for author in lectures.authors %}
-    ", {{ author }}"
-  {% endfor %}
-  </span>
+  <span class="copyright">Copyright (c) 2017 - {{ page.authors | join: ', ' }}</span>
 {% endif %}
 
 
