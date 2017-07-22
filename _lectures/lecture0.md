@@ -7,10 +7,20 @@ authors: [Paul Davies, C. Antonio Sánchez]
 ---
 
 # Introduction to C\+\+
+**Authors: ** Paul Davies (UBC), C. Antonio Sánchez (UBC)
+
+## Learning Goals
 
 In this lecture, we cover some of the history and basics of C\+\+.  By the end, you should be able to
-* ... learning goals
 
+* create and use *namespaces* to group together related functions
+* define a custom *class*, both *inline* and in separate source and header files
+* distinguish between *public* and *private* member variables and functions
+* create a set of overloaded class *constructors* for your custom class
+* describe the difference between *references* and *pointers*
+* allocate and free memory using the `new` and `delete` operators
+* create a class hierarchy using *inheritance* to re-use code
+* override a member function using *polymorphism*
 
 ## What's wrong with just 'C'?
 
@@ -297,9 +307,9 @@ Furthermore, if all cars provide the same interfaces (as they generally do), the
 
 What would happen in the previous example if we called the member function `getArea()` before having called `setValues(...)`?  Try it.
 
-We get an undetermined result since the object variables `width` and `height` would not have been assigned an initial value. As programmers, it would be our responsibility to make sure we called the function `setValues()` to initialise our rectangle as soon as possible after we create an instance of it. If we forget, then we are setting ourselves up for problems later.
+We get an undetermined result since the object variables `width` and `height` would not have been assigned an initial value. As programmers, it would be our responsibility to make sure we called the function `setValues()` to initialize our rectangle as soon as possible after we create an instance of it. If we forget, then we are setting ourselves up for problems later.
 
-In order to avoid that, a class can include a special function called a *constructor*, which is automatically called whenever a new object/instance of that class is created. The constructor can perform any actions you like e.g. initialise variables, open files, turn on LEDs in a small embedded system etc., but typically it is used to initialise the object’s member variables. In a way, our `setValues(...)` function is already carrying out this task, but it is not called automatically, we have to remember to call it ourselves.
+In order to avoid that, a class can include a special function called a *constructor*, which is automatically called whenever a new object/instance of that class is created. The constructor can perform any actions you like e.g. initialize variables, open files, turn on LEDs in a small embedded system etc., but typically it is used to initialize the object’s member variables. In a way, our `setValues(...)` function is already carrying out this task, but it is not called automatically, we have to remember to call it ourselves.
 
 A proper C\+\+ constructor function is declared just like a regular member function, but with a name that is **identical** to the class name (that’s how the C\+\+ compiler knows which of our many functions is the constructor – it has the same name as the class). Constructor functions *do not have a return type*, not even `void`.
 
@@ -335,9 +345,9 @@ int main() {
 ```
 Notice how these arguments are passed to the constructor at the moment at which the objects of this class are created e.g. `Rectangle r1(3,4)`. The '3' becomes the argument `width` and '4' the argument `height` in the constructor function.
 
-Now, class `Rectangle` has no member function `setValues(...)`, but instead has a constructor that performs a similar action. It initialises the values of width and height with the arguments passed to it.
+Now, class `Rectangle` has no member function `setValues(...)`, but instead has a constructor that performs a similar action. It initializes the values of width and height with the arguments passed to it.
 
-**Summary:** constructors are executed automatically when a new object/instance of that class is created. They should be declared with `public` access (see above and verify this) to allow them to be called. Constructors *never* return values, they simply initialise the object.
+**Summary:** constructors are executed automatically when a new object/instance of that class is created. They should be declared with `public` access (see above and verify this) to allow them to be called. Constructors *never* return values, they simply initialize the object.
 
 #### Overloading Constructors
 
@@ -383,7 +393,7 @@ int main() {
   return 0;
 }
 ```
-In the above example we also introduced a special kind of constructor: the *default constructor*. The default constructor is the constructor that takes no argument, and it is special because it is called when an object is introduced but is not initialised with any arguments.
+In the above example we also introduced a special kind of constructor: the *default constructor*. The default constructor is the constructor that takes no argument, and it is special because it is called when an object is introduced but is not initialized with any arguments.
 
 In this example, the default constructor is called for `r3`. Note how `r3` is not even constructed with an empty set of parentheses - in fact, empty parentheses *cannot* be used to invoke the default constructor:
 ```cpp
@@ -392,9 +402,9 @@ Rectangle   r3();	    // ERROR, default constructor NOT called – looks like a 
 ```
 This is because the empty set of parentheses above would make `r3` look like a function that takes no arguments and returns a value of type `Rectangle`.
 
-#### Member variable initialisation in Constructors
+#### Member variable initialization in Constructors
 
-When a constructor is used to initialise the member variables of a class, the variables can be initialised directly within the body of the constructor, as we have been doing. For example, consider a class with the following declaration:
+When a constructor is used to initialize the member variables of a class, the variables can be initialized directly within the body of the constructor, as we have been doing. For example, consider a class with the following declaration:
 ```cpp
 class Rectangle {
   int   width, height;       // private member variables
@@ -410,13 +420,13 @@ Rectangle::Rectangle (int x, int y) {
   height = y;
 }
 ```
-But it could also be defined using a member initialisation list
+But it could also be defined using a member initialization list
 ```cpp
 Rectangle::Rectangle (int x, int y) : width(x), height(y) {}
 ```
-In this above case, the constructor does nothing more than initialise its member variables, hence it has an empty function body `{}`, but you could put other code inside the body if you wished.
+In this above case, the constructor does nothing more than initialize its member variables, hence it has an empty function body `{}`, but you could put other code inside the body if you wished.
 
-For members of fundamental types e.g. `int`s, `float`s, `char`s etc. it makes no difference which of the two styles of constructor initialisation you chose, however member variables whose type is another class *should* be initialised in the member initialization list. For example, consider a cylinder object:
+For members of fundamental types e.g. `int`s, `float`s, `char`s etc. it makes no difference which of the two styles of constructor initialization you chose, however member variables whose type is another class *should* be initialized in the member initialization list. For example, consider a cylinder object:
 ```cpp
 class Circle {
   double radius;
@@ -437,7 +447,7 @@ class Cylinder {
   }
 }
 ```
-The `Cylinder` has a member variable `base` whose type is another class (a `Circle`).  Because objects of class `Circle` can oly be constructed with a parameter (i.e. the only available circle constructor requires an `int` argument), `Cylinder`'s constructor need to call `base`'s constructor, and the only way to do this is through a *member initialiser list*.
+The `Cylinder` has a member variable `base` whose type is another class (a `Circle`).  Because objects of class `Circle` can oly be constructed with a parameter (i.e. the only available circle constructor requires an `int` argument), `Cylinder`'s constructor need to call `base`'s constructor, and the only way to do this is through a *member initializer list*.
 
 #### Copy Constructors and References
 
@@ -483,14 +493,14 @@ Using a reference to a variable is exactly like using the variable itself.  Cons
 ```cpp
 char c;        // a simple char
 char *cptr;    // a pointer to char (i.e a char pointer)
-cptr = c;      // initialise pointer to point to ‘c’
+cptr = c;      // initialize pointer to point to ‘c’
 *cptr = 5;     // set the value of ‘c’ to 5 using the pointer with the ‘*’
 ```
 Using references is sometimes more convenient
 ```cpp
 char c;        // a simple char
 char &cref;    // a char reference
-cref = c;      // initialise reference to refer to ‘c’ (note NO ‘&’ in initialisation)
+cref = c;      // initialize reference to refer to ‘c’ (note NO ‘&’ in initialization)
 cref = 5;	   // set the value of ‘c’ to 5 using the reference (note NO ‘*’)
 ```
 The following demonstrates some of the differences:
@@ -560,7 +570,7 @@ Rectangle::~Rectangle() {
 
 ### Pointers to Class Objects
 
-Once a class has been introduced, a class name becomes a new valid type, so we can create pointers to that type of data. For example, the following statement declares that `p1` is a pointer to an object of class `Rectangle`. That is, it will eventually be initialised to point to an object in memory which is a `Rectangle`.
+Once a class has been introduced, a class name becomes a new valid type, so we can create pointers to that type of data. For example, the following statement declares that `p1` is a pointer to an object of class `Rectangle`. That is, it will eventually be initialized to point to an object in memory which is a `Rectangle`.
 ```cpp
 Rectangle *p1;
 ```
@@ -649,7 +659,7 @@ For example, let's imagine a simple series of classes to describe two kinds of p
 
 This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Rectangle` and `Triangle`:
 
-![polygon inheritance]({{ site.url }}/images/polygon_inheritance.png)
+![polygon inheritance](images/polygon_inheritance.png)
 
 The `Polygon` (our **base**) class would contain the member variables and functions that are common for both rectangles and triangles, in our case the variables `width` and `height`.  `Rectangle` and `Triangle` would be new *derived* classes, with specific features that are unique to each type of polygon.
 
