@@ -649,7 +649,7 @@ For example, let's imagine a simple series of classes to describe two kinds of p
 
 This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Rectangle` and `Triangle`:
 
-![polygon inheritance](images/polygon_inheritance.png)
+![polygon inheritance]({{ site.url }}/images/polygon_inheritance.png)
 
 The `Polygon` (our **base**) class would contain the member variables and functions that are common for both rectangles and triangles, in our case the variables `width` and `height`.  `Rectangle` and `Triangle` would be new *derived* classes, with specific features that are unique to each type of polygon.
 
