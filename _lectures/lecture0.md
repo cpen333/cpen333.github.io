@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title:  Introduction to C\+\+
+title:  Introduction to C++
 date:   2017-07-12 17:50:00
-categories: [lectures, c\+\+, object oriented]
+categories: [lectures, c++, object oriented]
 authors: [Paul Davies, C. Antonio Sánchez]
 ---
 
@@ -772,8 +772,8 @@ Don't get too hung up on some of these details if it sounds a little complicated
 ## Additional Resources
 
 Have a look at the following resources to learn a bit more.  The C\+\+ tutorials are a great start for beginners, and goes through many of the topics covered here.  For the brave or more advanced programmer, have a look at the Guru-of-the-Week blog, which contains an interesting set of problems about the nitty-gritty details of the C\+\+ language that can help make you a guru in no time.
-- C++ Language Tutorials:  http://www.cplusplus.com/doc/tutorial/
-- Herb Sutter's Guru-of-the-Week: https://herbsutter.com/gotw/
+- C++ Language Tutorials:  [http://www.cplusplus.com/doc/tutorial/](http://www.cplusplus.com/doc/tutorial/)
+- Herb Sutter's Guru-of-the-Week: [https://herbsutter.com/gotw/](https://herbsutter.com/gotw/), [http://www.gotw.ca/gotw/](http://www.gotw.ca/gotw/)
 
 
 
