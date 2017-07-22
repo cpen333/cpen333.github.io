@@ -7,7 +7,8 @@ authors: [Paul Davies, C. Antonio Sánchez]
 ---
 
 # Introduction to C\+\+
-**Authors: ** Paul Davies (UBC), C. Antonio Sánchez (UBC)
+
+**Authors:** Paul Davies (UBC), C. Antonio Sánchez (UBC)
 
 ## Learning Goals
 
