@@ -7,16 +7,12 @@ categories: [lectures, c++, object oriented]
 
 ---
 
-# Introduction to C\+\+
+# Introduction to C\+\+ 
+{:.no_toc}
 
 **Authors:** Paul Davies (UBC), C. Antonio Sánchez (UBC)
 
-<div class="toc-title">
-Contents:
-</div>
-
-* TOC
-{:toc template=page}
+{% include toc.html %}
 
 ## Learning Goals
 
@@ -807,8 +803,8 @@ Even though `Dog` didn't explicitly declare `speak()` as virtual, it was still o
 ### Exercises
 
 In solid modelling and computer graphics, three-dimensional objects are often represented by a *polygon mesh*, which consists of vertices, edges, and faces.
-![pulley]({{site.url}}/assets/lectures/lecture0/pulley.png)<br/>
-*Pulley model from the AIM@SHAPE model repository*
+![gear]({{site.url}}/assets/lectures/lecture0/gear.png)<br/>
+*Gear triangulated model, modified from Christopher Spicer's [16-Tooth Spur Gear](https://3dexport.com/free-3dmodel-16-tooth-spur-gear-139745.htm).*
 
 In this exercise, we are going to build a basic mesh representation.
 
@@ -857,16 +853,18 @@ First we will contruct a few basic classes that will allow us to represent a tri
 
 To test your code, try creating a few sample mesh instances.  You may find it convenient to read-in a mesh from a file rather than code-up all the vertex positions and faces manually.  A very basic "wavefront" object file (.obj) looks like this:
 ```
-v 9.183530 5.629120 -956.366028
-v 10.659800 6.909090 -954.133972
-v 8.836400 4.044280 -954.843018
+v -0.241144 0.007238 -0.039053
+v -0.241144 0.004954 -0.016076
+v -0.243538 0.007238 -0.016076
+v -0.241144 0.004971 0.016076
+v -0.243516 0.007238 0.016076
 ...
 f 1 2 3
-f 2 1 4
-f 5 6 7
+f 2 4 5
+f 3 2 5
 ...
 ```
-Lines that define a vertex start with `v`, and give its 3D coordinates. Vertices are numbered sequentially starting with index `1`.  Lines that define a face start with `f` and list the vertices that make up the face, so `f 1 2 3` tells us to create a single triangular face using the first three vertices above.  Here are sample wavefront files for a [cube]({{site.url}}/assets/lectures/lecture0/cube.obj) and the [pulley]({{site.url}}/assets/lectures/lecture0/pulley.obj).  See if you can re-create the files from your `PolygonalMesh` class, and verify the geometry is the same (either by comparing the files themselves, or by loading your newly created file in something like [MeshLab](http://www.meshlab.net/) or Windows 3D Builder).
+Lines that define a vertex start with `v`, and give its 3D coordinates. Vertices are numbered sequentially starting with index `1`.  Lines that define a face start with `f` and list the vertices that make up the face, so `f 1 2 3` tells us to create a single triangular face using the first three vertices above.  Here are sample wavefront files for a [cube]({{site.url}}/assets/lectures/lecture0/cube.obj), [sphere]({{site.url}}/assets/lectures/lecture0/sphere.obj), and the [gear]({{site.url}}/assets/lectures/lecture0/gear.obj).  See if you can re-create the files from your `PolygonalMesh` class, and verify the geometry is the same (either by comparing the files themselves, or by loading your newly created file in something like [MeshLab](http://www.meshlab.net/) or Windows 3D Builder).
 
 #### Part B
 
@@ -886,6 +884,10 @@ Not all faces in a polygon mesh need to be triangles -- otherwise it would just 
 5. Change your `PolygonalMesh` class to use the base `Face` class so it can hold both triangular and quadrilateral faces.
 
 This exercise demonstrates another advantage of classes and inheritance: *abstraction*.  From the point-of-view of the mesh, it doesn't really matter if a face is triangular or quadrilateral.  Internally, it can store both types in an array that holds instances of type `Face`.  We can get all the information we need about either type of face using only the methods in the base class.  The sub-classes only provide implementation-specific details.
+
+## Acknowledgements
+
+Some of this material is derived from the [cplusplus.com tutorials on classes](http://www.cplusplus.com/doc/tutorial/classes/) (© cplusplus.com, 2000-2017).  The gear model used in the exercises was modified from Christopher Spicer's [16-Tooth Spur Gear](https://3dexport.com/free-3dmodel-16-tooth-spur-gear-139745.htm).
 
 ## Additional Resources
 

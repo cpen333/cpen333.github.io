@@ -8,8 +8,12 @@ author:
   name:       C. Antonio Sánchez
   url:        
 
-#Others
+# Others
 markdown: kramdown
+
+# Mixed block html and markdown
+# kramdown:
+#  parse_block_html: true
 
 # Custom
 collections:
