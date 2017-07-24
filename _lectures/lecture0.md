@@ -4,7 +4,6 @@ title:  Introduction to C++
 date:   2017-07-12 17:50:00
 authors: [Paul Davies, C. Antonio Sánchez]
 categories: [lectures, c++, object oriented]
-usemath: true
 
 ---
 
@@ -31,6 +30,8 @@ In this lecture, we cover some of the history and basics of C\+\+.  By the end, 
 * allocate and free memory using the `new` and `delete` operators
 * create a class hierarchy using *inheritance* to re-use code
 * override a member function using *polymorphism*
+
+Don't get *too* hung up on some of the details below if it sounds a little complicated.  This whole document goes through quite a bit of background to C\+\+.   We won't emphasize half as much of this in CPEN 333 as you might think, but it is useful to know and try out.  Please try to read through all the material, but don’t agonise over it if you don't get it 1st, 2nd or even 3rd time through.  As with everything, these concepts will become more natural to you with experience, so... practice, practice, practice.
 
 ## What's wrong with just 'C'?
 
@@ -674,68 +675,15 @@ p2 = nullptr;
 ```
 Note the practice of setting the pointers to NULL after freeing the memory.  This ensures that you won't accidentally continue accessing the memory later on (since it would throw an exception).  In modern C\+\+ (C\+\+11 or higher), the keyword `nullptr` is used to represent an empty pointer.  Prior to this, it was common to use `NULL` or simply `0`.
 
-### Exercises
-
-In solid modelling and computer graphics, three-dimensional objects are often represented by a *polygon mesh*, which consists of vertices, edges, and faces.
-![pulley]({{site.url}}/assets/lectures/lecture0/pulley.png)<br/>
-*Pulley model from the AIM@SHAPE model repository*
-
-In this exercise, we are going to build a basic mesh representation.
-
-#### Part A
-
-First we will contruct a few basic classes that will allow us to represent a triangular mesh (i.e. all faces are triangles).
-<ol>
-  <li>Create a <code>Vertex</code> class that has
-    <ul>
-      <li>a <b>private</b> member variable <code>idx</code> for storing an index value</li>
-      <li>three <b>public</b> member variables <code>x,y,z</code> for storing position</li>
-      <li>two overloaded <em>constructors</em>:
-        <ul>
-          <li>one that sets the index alone, initializing the position to zero</li>
-          <li>the other that sets both the index and position</li>
-        </ul>
-      </li>
-      <li>a <b>public</b> method for getting the vertex index</li>
-      <li>a <b>public</b> method for setting the vertex position</li>
-    </ul><br/>
-    <img src="{{ site.url }}/assets/lectures/lecture0/vertex_class_diagram.png" alt="vertex class diagram"/><br/>
-    <em>Class Diagram for the</em> <code>Vertex</code> <em>class</em><br/><br/>
-  </li>
-  <li>Create a <code>TriFace</code> class that has
-    <ul>
-      <li>a <b>private</b> member variable <code>idx</code> for storing an index value</li>
-       <li>three <b>public</b> member variables <code>v0,v1,v2</code> for storing <code>Vertex</code> <b>pointers</b> that make up the face (ordered counter-clockwise around the outward-pointing normal using the right-hand rule)</li>
-       <li>a single constructor which sets the face index and the three vertices</li>
-       <li>a <b>public</b> method for getting the face index</li>
-       <li>a <b>public</b> method for getting the number of vertices in the face (should be 3)</li>
-    </ul><br/>
-    <img src="{{ site.url }}/assets/lectures/lecture0/triface_class_diagram.png" alt="triangular face class diagram"/><br/>
-    <em>Class Diagram for the</em> <code>TriFace</code> <em>class</em><br/><br/>
-  </li>
-  <li>Create a <code>PolygonalMesh</code> class for storing a collection of vertices and faces.  The internal details are left to you, but it must support <b>public</b> functions to:
-    <ul>
-      <li>get the number of vertices</li>
-      <li>get the number of faces</li>
-      <li>get a <b>pointer</b> to the <em>i</em> th vertex (should correspond to vertex with index <em>i</em> )</li>
-      <li>get a <b>pointer</b> the <em>i</em> th face (should correspond to face with index <em>i</em> )</li>
-    </ul><br/>
-    <img src="{{ site.url }}/assets/lectures/lecture0/polygonalmesh_class_diagram.png" alt="polygonal mesh class diagram"/><br/>
-    <em>Class Diagram for the</em> <code>PolygonalMesh</code> <em>class</em><br/><br/>
-  </li>
-</ol>
-
-\\(x=4^5\\)
-
-### Class Inheritence
+### Class Inheritance
 
 One of the main powers of classes is the ability to extend them, creating new classes by basing them existing ones.  This process, known as *inheritance*, involves a **base class** and a **derived class**: the derived class inherits all the member variables and functions of the base class (i.e. it is as if you had written them all again yourself).  You can also add new member variables and functions to the derived class. This is important because it leads to "re-use" of existing code: we can take something that somebody else may have written and add to it rather than re-inventing the wheel from scratch each time.
 
-Inheritance also allows us to *override* (or modify) something we inherited for free from the base class. For example, we could write a new member function in our derived class which has the same name as the function in the base class, but which will do something different, i.e. we can tailor the behaviour of our new derived class to make it more suitable for our application.
+Inheritance also allows us to *override* (or modify) something we inherited from the base class. For example, we could write a new member function in our derived class which has the same name as the function in the base class, but which will do something different, i.e. we can tailor the behaviour of our new derived class to make it more suitable for our application.
 
-For example, let's imagine a simple series of classes to describe two kinds of polygons: rectangles and triangles. These two polygons have certain common properties, such as the values needed to calculate their areas: they both could be described simply with a height and a width (or base) variable.
+For example, let's imagine a simple series of classes to describe two kinds of polygons: triangles and rectangles. These two polygons have certain common properties, such as the values needed to calculate their areas: they both could be described simply with a height and a width (or base) variable.
 
-This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Rectangle` and `Triangle`:
+This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Triangle` and `Rectangle`:
 
 ![polygon inheritance]({{ site.url }}/assets/lectures/lecture0/polygon_inheritance.png)
 
@@ -856,8 +804,88 @@ Even though `Dog` didn't explicitly declare `speak()` as virtual, it was still o
 
 **Bottom line:** if you're planning to override a function (which is usually by design), declare it as `virtual` in the base class.  That way, any class that overrides it is guaranteed to call its own version, regardless of how that variable is accessed.
 
-Don't get too hung up on some of these details if it sounds a little complicated.  This whole document gives quite a bit of background (though incomplete) to C\+\+.   We don't emphasize half as much of this in CPEN 333 as you might think, but it is useful to know the background.  So please try to read through it, but don’t agonise over it if you don't get it 1st, 2nd or even 3rd time through.  As with everything, these concepts will become more natural to you with practice, so... practice, practice, practice.
+### Exercises
 
+In solid modelling and computer graphics, three-dimensional objects are often represented by a *polygon mesh*, which consists of vertices, edges, and faces.
+![pulley]({{site.url}}/assets/lectures/lecture0/pulley.png)<br/>
+*Pulley model from the AIM@SHAPE model repository*
+
+In this exercise, we are going to build a basic mesh representation.
+
+#### Part A
+
+First we will contruct a few basic classes that will allow us to represent a triangular mesh (i.e. all faces are triangles).
+<ol>
+  <li>Create a <code>Vertex</code> class that has
+    <ul>
+      <li>a <b>private</b> member variable <code>idx</code> for storing an index value</li>
+      <li>three <b>public</b> member variables <code>x,y,z</code> for storing position</li>
+      <li>two overloaded <em>constructors</em>:
+        <ul>
+          <li>one that sets the index alone, initializing the position to zero</li>
+          <li>the other that sets both the index and position</li>
+        </ul>
+      </li>
+      <li>a <b>public</b> method for getting the vertex index</li>
+      <li>a <b>public</b> method for setting the vertex position</li>
+    </ul><br/>
+    <img src="{{ site.url }}/assets/lectures/lecture0/vertex_class_diagram.png" alt="vertex class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>Vertex</code> <em>class</em><br/><br/>
+  </li>
+  <li>Create a <code>TriFace</code> class that has
+    <ul>
+      <li>a <b>private</b> member variable <code>idx</code> for storing an index value</li>
+       <li>three <b>public</b> member variables <code>v0,v1,v2</code> for storing <code>Vertex</code> <b>pointers</b> that make up the face (ordered counter-clockwise around the outward-pointing normal using the right-hand rule)</li>
+       <li>a single constructor which sets the face index and the three vertices</li>
+       <li>a <b>public</b> method for getting the face index</li>
+       <li>a <b>public</b> method for getting the number of vertices in the face (should be 3)</li>
+    </ul><br/>
+    <img src="{{ site.url }}/assets/lectures/lecture0/triface_class_diagram.png" alt="triangular face class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>TriFace</code> <em>class</em><br/><br/>
+  </li>
+  <li>Create a <code>PolygonalMesh</code> class for storing a collection of vertices and faces.  The internal details are left to you, but it must support <b>public</b> functions to:
+    <ul>
+      <li>get the number of vertices</li>
+      <li>get the number of faces</li>
+      <li>get a <b>pointer</b> to the <em>i</em> th vertex (should correspond to vertex with index <em>i</em> )</li>
+      <li>get a <b>pointer</b> the <em>i</em> th face (should correspond to face with index <em>i</em> )</li>
+    </ul><br/>
+    <img src="{{ site.url }}/assets/lectures/lecture0/polygonalmesh_class_diagram.png" alt="polygonal mesh class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>PolygonalMesh</code> <em>class</em><br/><br/>
+  </li>
+</ol>
+
+To test your code, try creating a few sample mesh instances.  You may find it convenient to read-in a mesh from a file rather than code-up all the vertex positions and faces manually.  A very basic "wavefront" object file (.obj) looks like this:
+```
+v 9.183530 5.629120 -956.366028
+v 10.659800 6.909090 -954.133972
+v 8.836400 4.044280 -954.843018
+...
+f 1 2 3
+f 2 1 4
+f 5 6 7
+...
+```
+Lines that define a vertex start with `v`, and give its 3D coordinates. Vertices are numbered sequentially starting with index `1`.  Lines that define a face start with `f` and list the vertices that make up the face, so `f 1 2 3` tells us to create a single triangular face using the first three vertices above.  Here are sample wavefront files for a [cube]({{site.url}}/assets/lectures/lecture0/cube.obj) and the [pulley]({{site.url}}/assets/lectures/lecture0/pulley.obj).  See if you can re-create the files from your `PolygonalMesh` class, and verify the geometry is the same (either by comparing the files themselves, or by loading your newly created file in something like [MeshLab](http://www.meshlab.net/) or Windows 3D Builder).
+
+#### Part B
+
+Not all faces in a polygon mesh need to be triangles -- otherwise it would just be a *triangular* mesh, not a *polygon* mesh.  We will add a second type of face: the quadrilateral-face.  This new face type will also have an index number and support the `numVertices()` query, so we will use abstraction and inheritance to build a class hierarchy.
+
+ <img src="{{ site.url }}/assets/lectures/lecture0/face_class_diagram.png" alt="face class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>Face</code> <em>class hierarchy</em><br/>
+
+1. Create a new **base class** called `Face` that implements the shared functionality.  In the class diagram above, note that we did not include `v0,v1,v2` in the base class.  We technically could, but this may give the misleading impression that all faces are triangles.  The base class should only contain what might be expected from *all* faces.
+2. Adjust your code for `TriFace` to extend `Face`
+3. Create a new `QuadFace` class that has a fourth vertex pointer `v3`
+4. Add a new method to `Face` and its subclasses, `Vertex* getVertex(int i)`, that returns the *i* th vertex of the face.  In the base class, you can either give a basic definition that returns a null pointer (`nullptr` in C++11 or `NULL` otherwise), or you can define it as what's called a *pure virtual function*
+  ```cpp
+  virtual Vertex* getVertex(int i) = 0;
+  ```
+  This will make the `Face` class *abstract*.  Since no definition of `getVertex` exists in `Face` (we have essentially cleared it by setting it to zero), nobody can explicitly create a `Face` directly.  Instead, they must create one of the subclasses which have overridden the method to provide an implementation.
+5. Change your `PolygonalMesh` class to use the base `Face` class so it can hold both triangular and quadrilateral faces.
+
+This exercise demonstrates another advantage of classes and inheritance: *abstraction*.  From the point-of-view of the mesh, it doesn't really matter if a face is triangular or quadrilateral.  Internally, it can store both types in an array that holds instances of type `Face`.  We can get all the information we need about either type of face using only the methods in the base class.  The sub-classes only provide implementation-specific details.
 
 ## Additional Resources
 

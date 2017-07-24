@@ -9,13 +9,16 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="67.184319mm"
-   height="40.463593mm"
-   viewBox="0 0 67.184319 40.463593"
+   width="69.054977mm"
+   height="40.452503mm"
+   viewBox="0 0 69.054978 40.452504"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.0 r15299"
-   sodipodi:docname="polygon_inheritance.svg">
+   sodipodi:docname="polygon_inheritance.svg"
+   inkscape:export-filename="D:\school\teaching\CPEN333\workspace\cpen333.github.io\assets\lectures\lecture0\polygon_inheritance.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
   <defs
      id="defs2">
     <marker
@@ -56,16 +59,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.1887165"
-     inkscape:cx="70.038339"
-     inkscape:cy="68.318325"
+     inkscape:zoom="2.6539887"
+     inkscape:cx="125.48774"
+     inkscape:cy="83.383652"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1366"
-     inkscape:window-height="715"
-     inkscape:window-x="258"
-     inkscape:window-y="1072"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -74,8 +77,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid4485"
-       originx="-18.138332"
-       originy="-192.75225" />
+       originx="-12.290063"
+       originy="-192.76334" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -93,7 +96,7 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-18.138332,-63.784164)">
+     transform="translate(-12.290062,-63.784164)">
     <rect
        style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.76499999;stroke-miterlimit:4;stroke-dasharray:1.53, 0.765;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4487"
@@ -106,7 +109,7 @@
        id="rect4489"
        width="23.8125"
        height="13.229166"
-       x="18.520832"
+       x="57.150036"
        y="90.625" />
     <path
        sodipodi:type="star"
@@ -114,37 +117,38 @@
        id="path4491"
        sodipodi:sides="3"
        sodipodi:cx="71.4375"
-       sodipodi:cy="95.916667"
-       sodipodi:r1="15.427727"
+       sodipodi:cy="95.916664"
+       sodipodi:r1="14.309537"
        sodipodi:r2="7.7138629"
-       sodipodi:arg1="0.5404195"
-       sodipodi:arg2="1.5876171"
+       sodipodi:arg1="0.58800313"
+       sodipodi:arg2="1.6352007"
        inkscape:flatsided="true"
        inkscape:rounded="0"
        inkscape:randomized="0"
-       d="M 84.666667,103.85417 57.94884,103.40471 71.696993,80.491122 Z"
-       inkscape:transform-center-x="0.12974745"
-       inkscape:transform-center-y="-3.7440232" />
+       d="M 83.34375,103.85417 58.61029,102.25902 72.35846,81.636794 Z"
+       inkscape:transform-center-x="-0.2766416"
+       inkscape:transform-center-y="-4.1539587"
+       transform="rotate(-3.5457104,48.088047,840.1803)" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="19.944174"
+       x="58.573376"
        y="98.817917"
        id="text4495"><tspan
          sodipodi:role="line"
          id="tspan4493"
-         x="19.944174"
+         x="58.573376"
          y="98.817917"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px">Rectangle</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:6.61458349px;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="63.445442"
+       x="17.407898"
        y="99.287819"
        id="text4495-9"><tspan
          sodipodi:role="line"
          id="tspan4493-5"
-         x="63.445442"
+         x="17.407898"
          y="99.287819"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;writing-mode:lr-tb;text-anchor:start;stroke-width:0.26458332px">Triangle</tspan></text>
     <text
