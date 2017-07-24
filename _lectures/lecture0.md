@@ -130,6 +130,25 @@ Namespaces give us further control for grouping sets of related variables and fu
 
 **Object Oriented Programming** (OOP) takes these *private* and *encapsulation* concepts one step further.
 
+### Exercises
+
+1. Create a small integer-based math library inside a custom *namespace*
+  - support basic operations
+  ```cpp
+  int add(int x, int y);    // result = x+y
+  int mul(int x, int y);    // result = x*y
+  int div(int x, int y);    // result = x/y
+  int pow(int x, int n);    // result = x^n
+  ```
+  - support several "root" functions: 
+  ```cpp
+  int isqrt(int x)          // integer square root
+  int icbrt(int x)          // integer cubed root
+  int iroot(int x, int n);  // integer n-th root
+  ```
+  that returns the largest integer that is less-than or equal-to the desired root (Hint: you can often use binary search for these types of problems, or logarithms if you're careful with rounding).
+2. Create a `main` program that prompts the user for a value `x` and root-parameter `n`, and uses your mini library to compute and print out the *n*-th root of *x*.  Prove to the user that your answer is correct (i.e. show that `pow(r, n) <= x` and `pow(r+1, n) > x`).
+
 ## Classes
 
 *Classes* are a great way of grouping together related variables and functions into one place.  They are devined using the `class` keyword, with the following syntax:
@@ -265,7 +284,7 @@ Apart from code management, there is little difference between defining a member
 
 ### Separating classes into header and source files
 
-Taking this one step further, C\+\+ wisdom dictates that the parts of teh class be separated into a **Rectangle.cpp ** *source* file (note the **.cpp** suffix) and a **Rectangle.h** *header* file.  This is not essential, but is demonstrated below.
+Taking this one step further, C\+\+ wisdom dictates that the parts of teh class be separated into a **Rectangle.cpp** *source* file (note the **.cpp** suffix) and a **Rectangle.h** *header* file.  This is not essential, but is demonstrated below.
 
 ```cpp
 /***************************************
@@ -402,8 +421,8 @@ In the above example we also introduced a special kind of constructor: the *defa
 
 In this example, the default constructor is called for `r3`. Note how `r3` is not even constructed with an empty set of parentheses - in fact, empty parentheses *cannot* be used to invoke the default constructor:
 ```cpp
-Rectangle   r3;   		// OK, default constructor called
-Rectangle   r3();	    // ERROR, default constructor NOT called – looks like a function prototype
+Rectangle   r3;         // OK, default constructor called
+Rectangle   r3();       // ERROR, default constructor NOT called – looks like a function prototype
 ```
 This is because the empty set of parentheses above would make `r3` look like a function that takes no arguments and returns a value of type `Rectangle`.
 
@@ -628,7 +647,7 @@ float *p2 = new float [20] ;
 We could then use the pointers to manipulate the data as we would have done in C, e.g.
 ```cpp
 *p1 = 5;    // set the integer that p1 points to, to the value 5
-for(int i = 0; i < 20; ++i) {
+for ( int i = 0; i < 20; ++i ) {
 	p2[i] = 1.25;  // set all elements in p2 to 1.25
 }
 ```
@@ -654,6 +673,23 @@ p2 = nullptr;
 ```
 Note the practice of setting the pointers to NULL after freeing the memory.  This ensures that you won't accidentally continue accessing the memory later on (since it would throw an exception).  In modern C\+\+ (C\+\+11 or higher), the keyword `nullptr` is used to represent an empty pointer.  Prior to this, it was common to use `NULL` or simply `0`.
 
+#### Exercises
+
+1. Create a `Vertex` class that has
+  - three **public** member variables `x,y,z` for storing position
+  - a **private** member variable for storing an index value
+  - a **public** method for setting the vertex position
+  - a **public** method for getting the vertex index
+  - two overloaded *constructors*:
+     * one that sets the index alone, initializing the position to zero
+     * the other that sets both the index and position
+
+![vertex class diagram]({{ site.url }}/images/lectures/lecture0/vertex_class_diagram.png)
+*Class Diagram for* `Vertex` *class*
+  
+2. Create a `TriFace` class that has
+
+
 ### Class Inheritence
 
 One of the main powers of classes is the ability to extend them, creating new classes by basing them existing ones.  This process, known as *inheritance*, involves a **base class** and a **derived class**: the derived class inherits all the member variables and functions of the base class (i.e. it is as if you had written them all again yourself).  You can also add new member variables and functions to the derived class. This is important because it leads to "re-use" of existing code: we can take something that somebody else may have written and add to it rather than re-inventing the wheel from scratch each time.
@@ -664,7 +700,7 @@ For example, let's imagine a simple series of classes to describe two kinds of p
 
 This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Rectangle` and `Triangle`:
 
-![polygon inheritance]({{ site.url }}/images/polygon_inheritance.png)
+![polygon inheritance]({{ site.url }}/images/lectures/lecture0/polygon_inheritance.png)
 
 The `Polygon` (our **base**) class would contain the member variables and functions that are common for both rectangles and triangles, in our case the variables `width` and `height`.  `Rectangle` and `Triangle` would be new *derived* classes, with specific features that are unique to each type of polygon.
 
