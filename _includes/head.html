@@ -8,4 +8,9 @@
   <link rel="stylesheet" href="{{ site.baseurl }}/css/cayman.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/pagenav.css">
   <link rel="stylesheet" href="{{ site.baseurl }}/css/custom.css">
+
+  {% if page.usemath == true %}
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  {% endif %}
 </head>

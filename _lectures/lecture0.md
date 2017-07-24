@@ -4,6 +4,7 @@ title:  Introduction to C++
 date:   2017-07-12 17:50:00
 authors: [Paul Davies, C. Antonio Sánchez]
 categories: [lectures, c++, object oriented]
+usemath: true
 
 ---
 
@@ -673,22 +674,58 @@ p2 = nullptr;
 ```
 Note the practice of setting the pointers to NULL after freeing the memory.  This ensures that you won't accidentally continue accessing the memory later on (since it would throw an exception).  In modern C\+\+ (C\+\+11 or higher), the keyword `nullptr` is used to represent an empty pointer.  Prior to this, it was common to use `NULL` or simply `0`.
 
-#### Exercises
+### Exercises
 
-1. Create a `Vertex` class that has
-  - three **public** member variables `x,y,z` for storing position
-  - a **private** member variable for storing an index value
-  - a **public** method for setting the vertex position
-  - a **public** method for getting the vertex index
-  - two overloaded *constructors*:
-     * one that sets the index alone, initializing the position to zero
-     * the other that sets both the index and position
+In solid modelling and computer graphics, three-dimensional objects are often represented by a *polygon mesh*, which consists of vertices, edges, and faces.
+![pulley]({{site.url}}/assets/lectures/lecture0/pulley.png)<br/>
+*Pulley model from the AIM@SHAPE model repository*
 
-![vertex class diagram]({{ site.url }}/images/lectures/lecture0/vertex_class_diagram.png)
-*Class Diagram for* `Vertex` *class*
-  
-2. Create a `TriFace` class that has
+In this exercise, we are going to build a basic mesh representation.
 
+#### Part A
+
+First we will contruct a few basic classes that will allow us to represent a triangular mesh (i.e. all faces are triangles).
+<ol>
+  <li>Create a <code>Vertex</code> class that has
+    <ul>
+      <li>a <b>private</b> member variable <code>idx</code> for storing an index value</li>
+      <li>three <b>public</b> member variables <code>x,y,z</code> for storing position</li>
+      <li>two overloaded <em>constructors</em>:
+        <ul>
+          <li>one that sets the index alone, initializing the position to zero</li>
+          <li>the other that sets both the index and position</li>
+        </ul>
+      </li>
+      <li>a <b>public</b> method for getting the vertex index</li>
+      <li>a <b>public</b> method for setting the vertex position</li>
+    </ul><br/>
+    <img src="{{ site.url }}/assets/lectures/lecture0/vertex_class_diagram.png" alt="vertex class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>Vertex</code> <em>class</em><br/><br/>
+  </li>
+  <li>Create a <code>TriFace</code> class that has
+    <ul>
+      <li>a <b>private</b> member variable <code>idx</code> for storing an index value</li>
+       <li>three <b>public</b> member variables <code>v0,v1,v2</code> for storing <code>Vertex</code> <b>pointers</b> that make up the face (ordered counter-clockwise around the outward-pointing normal using the right-hand rule)</li>
+       <li>a single constructor which sets the face index and the three vertices</li>
+       <li>a <b>public</b> method for getting the face index</li>
+       <li>a <b>public</b> method for getting the number of vertices in the face (should be 3)</li>
+    </ul><br/>
+    <img src="{{ site.url }}/assets/lectures/lecture0/triface_class_diagram.png" alt="triangular face class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>TriFace</code> <em>class</em><br/><br/>
+  </li>
+  <li>Create a <code>PolygonalMesh</code> class for storing a collection of vertices and faces.  The internal details are left to you, but it must support <b>public</b> functions to:
+    <ul>
+      <li>get the number of vertices</li>
+      <li>get the number of faces</li>
+      <li>get a <b>pointer</b> to the <em>i</em> th vertex (should correspond to vertex with index <em>i</em> )</li>
+      <li>get a <b>pointer</b> the <em>i</em> th face (should correspond to face with index <em>i</em> )</li>
+    </ul><br/>
+    <img src="{{ site.url }}/assets/lectures/lecture0/polygonalmesh_class_diagram.png" alt="polygonal mesh class diagram"/><br/>
+    <em>Class Diagram for the</em> <code>PolygonalMesh</code> <em>class</em><br/><br/>
+  </li>
+</ol>
+
+\\(x=4^5\\)
 
 ### Class Inheritence
 
@@ -700,7 +737,7 @@ For example, let's imagine a simple series of classes to describe two kinds of p
 
 This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Rectangle` and `Triangle`:
 
-![polygon inheritance]({{ site.url }}/images/lectures/lecture0/polygon_inheritance.png)
+![polygon inheritance]({{ site.url }}/assets/lectures/lecture0/polygon_inheritance.png)
 
 The `Polygon` (our **base**) class would contain the member variables and functions that are common for both rectangles and triangles, in our case the variables `width` and `height`.  `Rectangle` and `Triangle` would be new *derived* classes, with specific features that are unique to each type of polygon.
 

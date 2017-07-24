@@ -1,2 +1,4 @@
 /Gemfile*
 /_site
+# backup files
+*~
