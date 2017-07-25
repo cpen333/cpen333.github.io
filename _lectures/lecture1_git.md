@@ -98,7 +98,7 @@ With the popularity of GitHub and other online hosting providers, it has become 
 For what follows, we are assuming you have Git installed and have access to a unix-style terminal.  If you don't have Git installed, you can download it from [here](https://git-scm.com/download).  On Windows, this installation will come with "Git Bash" which can be used as the unix-style terminal.  On OSX, you can use the [Terminal](http://www.macworld.co.uk/feature/mac-software/how-use-terminal-on-mac-3608274/) app.
 
 We are going to start by creating a small repository from scratch to get you used to the process.  Open the terminal.  It should present you with a prompt that looks something like this:
-```bash
+```
 username@machine:folder$
 ```
 with a flashing cursor at the end.  In what follows, I will omit the first part, and just leave the `$` to indicate the prompt at which you type commands.
@@ -108,23 +108,23 @@ Your terminal is currently running commands in a certain folder.  You can see th
 ### Folder Setup
 
 We are going to make a new directory called `cpen333`, and create a new subfolder in there called `git_example` which will hold our new local repository.  In the terminal, we do this with the following set of commands:
-```bash
+```
 $ mkdir cpen333
 $ cd cpen333
 $ mkdir git_example
 $ cd git_example
 ```
 We can see our new current working directory using the `pwd` command
-```bash
+```
 $ pwd
 /c/Users/antonio/cpen333/git_example
 ```
 Let's add a simple text file using the command-line:
-```bash
+```
 $ echo My first git project > readme.txt
 ```
 This creates a new file called `readme.txt`, and sents the content "My first git project" into it.  You can see that the file exists using the `ls` command, and read the contents using `cat <filename>`:
-```bash
+```
 $ ls
 readme.txt
 
@@ -133,20 +133,20 @@ My first git project
 ```
 
 It is very common (outside of the Visual Studio world) to put source files into a folder called `src` and to compile binary files into a separate folder called `bin`.  We are going to create these two folders, and add a couple of text files.
-```bash
+```
 $ mkdir src bin
 $ cd src
 ```
 The first command created both directories at once.  We should now be in the `src` folder (you can verify this by checking your present working directory).  We are going to create a new C\+\+ source file here.  You can use whatever editor you want.  Here we will use **TextEdit** on OSX or **Notepad** on Windows.
 
 **OSX:**
-```bash
+```
 $ touch helloworld.cpp
 $ open -a TextEdit helloworld.cpp
 ```
 
 **Windows:**
-```bash
+```
 $ notepad helloworld.cpp
 ```
 Enter the following contents, save the file, and close the editor:
@@ -158,7 +158,7 @@ int main() {
 }
 ```
 This is your basic "hello world" program.  We are going to change our working directory back "up" one directory to the `git_example` folder.  The `..` path is used to denote "back up one directory" (and `.` is the current directory, `..` is up one, `../..` is up two, etc...).
-```bash
+```
 $ cd ..
 $ pwd
 /c/Users/antonio/cpen333/git_example
