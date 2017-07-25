@@ -645,7 +645,7 @@ Some of this material comes from a tutorial on Git for CPEN 221 - Principles of 
 
 ## Additional Resources
 
-For more practice with git, try the following online tutorials
+For more practice with Git, try the following online tutorials
 - Try-Git [(https://try.github.io)](https://try.github.io)
 - Atlassian's Git Tutorial [(https://www.atlassian.com/git/tutorials/what-is-git)](https://www.atlassian.com/git/tutorials/what-is-git)
 - Git-SCM's Git Tutorial [(https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
