@@ -10,7 +10,7 @@ categories: [git, revision control]
 # Introduction to Git
 {:.no_toc}
 
-**Authors:** C. Antonio Sánchez (UBC), Sathish Gopalakrishnan (UBC)
+**Authors:** C. Antonio Sánchez (UBC)
 
 {% include toc.html %}
 
@@ -62,8 +62,8 @@ When working with a version control system, the following terms are often used t
 <dd>The difference between two complete project versions, usually treated as an indivisible group because of dependencies between the changes.</dd>
 <dt>Head</dt>
 <dd>The latest saved version.</dd>
-</dl><br/><br/>
-
+</dl>
+<br/>
 
 We also have a set of actions for manipulating the versions:
 <dl>
@@ -200,7 +200,7 @@ To start a new empty Git repository, use
 $ git init
 Initialized empty Git repository in C:/Users/antonio/cpen333/git_example/.git/
 ```
-We can check the status of our repository using
+Note that Git has now created a folder called `.git` inside your project.  ***NEVER DELETE THIS FOLDER***.  This contains the entire repository and all its version history.  We can check the status of our repository using
 ```
 $ git status
 On branch master
@@ -619,6 +619,8 @@ To https://gitlab.com/cpen333/cubicsolver.git
 ```
 The *push* should now succeed, since you've updated your local copy to the latest and fixed any conflicts.
 
+### Mergetools
+
 When you start running into a lot of conflicts, it can get rather tedious to find and fix them all manually.  There are many tools out there to help you.  My favourite so far on Windows/Linux is [Meld](http://meldmerge.org/).  Once you have **Meld** installed, you can configure Git to use it as your default *merge-tool*:
 ```
 $ git config --global merge.tool meld
@@ -635,6 +637,8 @@ Meld should then present a graphical interface which will allow you to select wh
 
 *Meld presents the conflict and tools for quickly resolving it.  The left pane shows your current local copy, the right the conflicting remote copy, and the center is your working copy where you resolve the conflict.*
 
+It may be possible to get Meld running on OSX.  I have seem some tutorials kicking around, and there is [this site](https://yousseb.github.io/meld/) that offers a custom build of Meld just for OSX and git integration.  It is not an official release from Meld, so buyer beware.
+
 ## Challenge
 
 Try solving the cubic-root problem from this lecture.  Feel free to create another branch called `experimental` to try your approach without affecting the *master* branch.  Once you have found a solution, merge it back into `master`.
@@ -645,7 +649,8 @@ Some of this material comes from a tutorial on Git for CPEN 221 - Principles of 
 
 ## Additional Resources
 
-For more practice with Git, try the following online tutorials
+We've covered quite a bit of material, but there is a lot more Git can do, and you'll eventually run into more complex issues that we haven't touched on.  Luckily, since Git is so popular, you should be able to find solutions to any problem that come up on [StackOverflow](https://stackoverflow.com/documentation/git/topics).  For more practice with Git, try going through the following online tutorials
+
 - Try-Git [(https://try.github.io)](https://try.github.io)
 - Atlassian's Git Tutorial [(https://www.atlassian.com/git/tutorials/what-is-git)](https://www.atlassian.com/git/tutorials/what-is-git)
 - Git-SCM's Git Tutorial [(https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)](https://git-scm.com/book/en/v2/Getting-Started-Git-Basics)
