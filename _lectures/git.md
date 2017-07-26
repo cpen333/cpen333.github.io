@@ -107,17 +107,17 @@ Your terminal is currently running commands in a certain folder.  You can see th
 
 ### Folder Setup
 
-We are going to make a new directory called `cpen333`, and create a new subfolder in there called `git_example` which will hold our new local repository.  In the terminal, we do this with the following set of commands:
+We are going to make a new directory called `cpen333`, and create a new subfolder in there called `hellogit` which will hold our new local repository.  In the terminal, we do this with the following set of commands:
 ```
 $ mkdir cpen333
 $ cd cpen333
-$ mkdir git_example
-$ cd git_example
+$ mkdir hellogit
+$ cd hellogit
 ```
 We can see our new current working directory using the `pwd` command
 ```
 $ pwd
-/c/Users/antonio/cpen333/git_example
+/c/Users/antonio/cpen333/hellogit
 ```
 Let's add a simple text file using the command-line:
 ```
@@ -157,16 +157,16 @@ int main() {
   return 0;
 }
 ```
-This is your basic "hello world" program.  We are going to change our working directory back "up" one directory to the `git_example` folder.  The `..` path is used to denote "back up one directory" (and `.` is the current directory, `..` is up one, `../..` is up two, etc...).
+This is your basic "hello world" program.  We are going to change our working directory back "up" one directory to the `hellogit` folder.  The `..` path is used to denote "back up one directory" (and `.` is the current directory, `..` is up one, `../..` is up two, etc...).
 ```
 $ cd ..
 $ pwd
-/c/Users/antonio/cpen333/git_example
+/c/Users/antonio/cpen333/hellogit
 $ ls
 bin/  readme.txt  src/
 ```
 We should now have  a directory structure that looks like this:
-![folder structure]({{site.url}}/assets/lectures/lecture1/git_folder_structure_small.png)
+![folder structure]({{site.url}}/assets/lectures/git/git_folder_structure.png)
 
 If you have **gcc** installed, or some other compiler, try compiling the source file into the `bin` folder.  On Windows, I suggest downloading the [MinGW compiler suite](https://sourceforge.net/projects/mingw-w64/), installing it, and adding the `mingw64/bin` to your [Windows `PATH` variable](http://www.mingw.org/wiki/Getting_Started#toc7).  Using **gcc**, we can do the compilation with
 ```
@@ -198,7 +198,7 @@ This sets your name and email address so that when you save revisions, Git knows
 To start a new empty Git repository, use
 ```
 $ git init
-Initialized empty Git repository in C:/Users/antonio/cpen333/git_example/.git/
+Initialized empty Git repository in C:/Users/antonio/cpen333/hellogit/.git/
 ```
 Note that Git has now created a folder called `.git` inside your project.  ***NEVER DELETE THIS FOLDER***.  This contains the entire repository and all its version history.  We can check the status of our repository using
 ```
@@ -365,7 +365,7 @@ $ git commit -m "better readme"
 
 What do you do if you want to experiment with code before being stuck with it?  You may also want to keep a copy of the existing code-base in case things fail miserably.  The old-school approach is to make a backup copy of your entire project folder.  With branching, you don't need to do this.  Instead, you can start a new branch, work along in the branch, adding changes/committing versions.  You can easily switch between branches at any point, going to the main (i.e. *master*) branch to see your backed-up code, and back to your *experimental* branch to see your new stuff.
 
-![git branches]({{site.url}}/assets/lectures/lecture1/git_branch.png)
+![git branches]({{site.url}}/assets/lectures/git/git_branch.png)
 
 *Three branches in Git, the experimental branch diverged at some point, but then once the code was tested and ready, its changes were merged back into the master branch.*
 
@@ -461,11 +461,11 @@ If you already have a GitHub account, great :).  Students should be able to regi
 
 You can think of **GitHub** or **GitLab** as a cloud-storage for the master copy of your repository.  By keeping it up-to-date, you will be able to access your project any time, from anywhere, on any computer, as long as you have internet access.  For this exercise, you will be reading an initial repository for the [CPEN 333 GitHub account](github.com/cpen333).  Since you don't have write-access to this account, you will need to save your work to your own repository hosted somewhere.
 
-![git remote submission]({{site.url}}/assets/lectures/lecture1/git_remote_submission.png)
+![git remote submission]({{site.url}}/assets/lectures/git/git_remote_submission.png)
 
 *We will* `clone` *a copy of the remote repository from GitHub to create a local copy, modify it, then push our modified version to a new cloud-based storage location*
 
-To start, let's *clone* the **cubicsolver** repository from **GitHub** to your local machine.  If you are still in the **git_example** repository from before, change up to its parent directory using `cd ..`.  To clone a repository, use
+To start, let's *clone* the **cubicsolver** repository from **GitHub** to your local machine.  If you are still in the **hellogit** repository from before, change up to its parent directory using `cd ..`.  To clone a repository, use
 ```
 $ git clone https://github.com/cpen333/cubicsolver.git
 Cloning into 'cubicsolver'...
@@ -633,7 +633,7 @@ $ git mergetool
 ```
 Meld should then present a graphical interface which will allow you to select which changes you want to keep, and which to ignore.
 
-![meld conflict resolution]({{site.url}}/assets/lectures/lecture1/meld.png)
+![meld conflict resolution]({{site.url}}/assets/lectures/git/meld.png)
 
 *Meld presents the conflict and tools for quickly resolving it.  The left pane shows your current local copy, the right the conflicting remote copy, and the center is your working copy where you resolve the conflict.*
 

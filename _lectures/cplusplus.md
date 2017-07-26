@@ -681,7 +681,7 @@ For example, let's imagine a simple series of classes to describe two kinds of p
 
 This could be represented in the world of classes with a class `Polygon` from which we would derive the two other shapes: `Triangle` and `Rectangle`:
 
-![polygon inheritance]({{ site.url }}/assets/lectures/lecture0/polygon_inheritance.png)
+![polygon inheritance]({{ site.url }}/assets/lectures/cplusplus/polygon_inheritance.png)
 
 The `Polygon` (our **base**) class would contain the member variables and functions that are common for both rectangles and triangles, in our case the variables `width` and `height`.  `Rectangle` and `Triangle` would be new *derived* classes, with specific features that are unique to each type of polygon.
 
@@ -803,7 +803,7 @@ Even though `Dog` didn't explicitly declare `speak()` as virtual, it was still o
 ### Exercises
 
 In solid modelling and computer graphics, three-dimensional objects are often represented by a *polygon mesh*, which consists of vertices, edges, and faces.
-![gear]({{site.url}}/assets/lectures/lecture0/gear.png)<br/>
+![gear]({{site.url}}/assets/lectures/cplusplus/gear.png)<br/>
 *Gear triangulated model, modified from Christopher Spicer's [16-Tooth Spur Gear](https://3dexport.com/free-3dmodel-16-tooth-spur-gear-139745.htm).*
 
 In this exercise, we are going to build a basic mesh representation.
@@ -825,7 +825,7 @@ First we will contruct a few basic classes that will allow us to represent a tri
       <li>a <b>public</b> method for getting the vertex index</li>
       <li>a <b>public</b> method for setting the vertex position</li>
     </ul><br/>
-    <img src="{{ site.url }}/assets/lectures/lecture0/vertex_class_diagram.png" alt="vertex class diagram"/><br/>
+    <img src="{{ site.url }}/assets/lectures/cplusplus/vertex_class_diagram.png" alt="vertex class diagram"/><br/>
     <em>Class Diagram for the</em> <code>Vertex</code> <em>class</em><br/><br/>
   </li>
   <li>Create a <code>TriFace</code> class that has
@@ -836,7 +836,7 @@ First we will contruct a few basic classes that will allow us to represent a tri
        <li>a <b>public</b> method for getting the face index</li>
        <li>a <b>public</b> method for getting the number of vertices in the face (should be 3)</li>
     </ul><br/>
-    <img src="{{ site.url }}/assets/lectures/lecture0/triface_class_diagram.png" alt="triangular face class diagram"/><br/>
+    <img src="{{ site.url }}/assets/lectures/cplusplus/triface_class_diagram.png" alt="triangular face class diagram"/><br/>
     <em>Class Diagram for the</em> <code>TriFace</code> <em>class</em><br/><br/>
   </li>
   <li>Create a <code>PolygonalMesh</code> class for storing a collection of vertices and faces.  The internal details are left to you, but it must support <b>public</b> functions to:
@@ -846,7 +846,7 @@ First we will contruct a few basic classes that will allow us to represent a tri
       <li>get a <b>pointer</b> to the <em>i</em> th vertex (should correspond to vertex with index <em>i</em> )</li>
       <li>get a <b>pointer</b> the <em>i</em> th face (should correspond to face with index <em>i</em> )</li>
     </ul><br/>
-    <img src="{{ site.url }}/assets/lectures/lecture0/polygonalmesh_class_diagram.png" alt="polygonal mesh class diagram"/><br/>
+    <img src="{{ site.url }}/assets/lectures/cplusplus/polygonalmesh_class_diagram.png" alt="polygonal mesh class diagram"/><br/>
     <em>Class Diagram for the</em> <code>PolygonalMesh</code> <em>class</em><br/><br/>
   </li>
 </ol>
@@ -864,13 +864,13 @@ f 2 4 5
 f 3 2 5
 ...
 ```
-Lines that define a vertex start with `v`, and give its 3D coordinates. Vertices are numbered sequentially starting with index `1`.  Lines that define a face start with `f` and list the vertices that make up the face, so `f 1 2 3` tells us to create a single triangular face using the first three vertices above.  Here are sample wavefront files for a [cube]({{site.url}}/assets/lectures/lecture0/cube.obj), [sphere]({{site.url}}/assets/lectures/lecture0/sphere.obj), and the [gear]({{site.url}}/assets/lectures/lecture0/gear.obj).  See if you can re-create the files from your `PolygonalMesh` class, and verify the geometry is the same (either by comparing the files themselves, or by loading your newly created file in something like [MeshLab](http://www.meshlab.net/) or Windows 3D Builder).
+Lines that define a vertex start with `v`, and give its 3D coordinates. Vertices are numbered sequentially starting with index `1`.  Lines that define a face start with `f` and list the vertices that make up the face, so `f 1 2 3` tells us to create a single triangular face using the first three vertices above.  Here are sample wavefront files for a [cube]({{site.url}}/assets/lectures/cplusplus/cube.obj), [sphere]({{site.url}}/assets/lectures/cplusplus/sphere.obj), and the [gear]({{site.url}}/assets/lectures/cplusplus/gear.obj).  See if you can re-create the files from your `PolygonalMesh` class, and verify the geometry is the same (either by comparing the files themselves, or by loading your newly created file in something like [MeshLab](http://www.meshlab.net/) or Windows 3D Builder).
 
 #### Part B
 
 Not all faces in a polygon mesh need to be triangles -- otherwise it would just be a *triangular* mesh, not a *polygon* mesh.  We will add a second type of face: the quadrilateral-face.  This new face type will also have an index number and support the `numVertices()` query, so we will use abstraction and inheritance to build a class hierarchy.
 
- <img src="{{ site.url }}/assets/lectures/lecture0/face_class_diagram.png" alt="face class diagram"/><br/>
+ <img src="{{ site.url }}/assets/lectures/cplusplus/face_class_diagram.png" alt="face class diagram"/><br/>
     <em>Class Diagram for the</em> <code>Face</code> <em>class hierarchy</em><br/>
 
 1. Create a new **base class** called `Face` that implements the shared functionality.  In the class diagram above, note that we did not include `v0,v1,v2` in the base class.  We technically could, but this may give the misleading impression that all faces are triangles.  The base class should only contain what might be expected from *all* faces.

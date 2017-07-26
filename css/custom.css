@@ -12,3 +12,11 @@
 	font-weight: bold;
 	margin: 0px 0px 0px 0px;
 }
+
+a.footnote:before {
+	content: "[";
+}
+
+a.footnote:after {
+	content: "]";
+}
