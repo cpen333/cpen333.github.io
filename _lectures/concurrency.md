@@ -54,7 +54,7 @@ As an example of a multi-tasking system, consider a web-server providing a servi
 
 ![multitask web service]({{site.url}}/assets/lectures/concurrency/multitask.png)
 
-*A web service accepts client connections through a dispatcher (or [load balancer](https://en.wikipedia.org/wiki/Load_balancing_(computing)) which forwards the request to an available server.*
+*A web service accepts client connections through a dispatcher (or [load balancer](https://en.wikipedia.org/wiki/Load_balancing_(computing))) which forwards the request to an available server.*
 
 Multi-tasking systems are notoriously more difficult to design and debug.  Let's say we took our previous code example, and duplicated it so it ran on two machines simultaneously but shared the same memory at `shared_memory_address`.
 
