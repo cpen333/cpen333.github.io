@@ -10,4 +10,11 @@ title: {{ site.name }}
       <li><a href="{{ site.baseurl }}{{ lecture.url }}">{{ lecture.title }}</a></li>
     {% endfor %}
   </ul>
+
+  <h1>Labs</h1>
+  <ul class="labs">
+    {% for lab in site.labs %}
+      <li><a href="{{ site.baseurl }}{{ lab.url }}">{{ lab.title }}</a></li>
+    {% endfor %}
+  </ul>
 </div>

@@ -20,3 +20,7 @@ collections:
   lectures:
     output: true
     permalink: /:collection/:path/
+
+  labs:
+    output: true
+    permalink: /:collection/:path/
