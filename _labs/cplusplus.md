@@ -11,13 +11,15 @@ usemath: true
 # Lab 1 -- Introduction to C++
 {:.no_toc}
 
-In this lab, we will get some practice with C\+\+ and object oriented programming.  Our test-case is a little 1D car simulator.  It is assumed you have read most of the [class notes on C\+\+](https://cpen333.github.io/lectures/cplusplus/).  To help get you started, some of the code is posted on GitHub [here (https://github.com/cpen333/lab1)](https://github.com/cpen333/lab1).
+In this lab, we will get some practice with C\+\+ and object oriented programming.  Our test-case is a simplified 1D car simulator.  It is assumed you have read most of the [class notes on C\+\+](https://cpen333.github.io/lectures/cplusplus/).  To help get you started, some of the code is posted on GitHub [here (https://github.com/cpen333/lab1)](https://github.com/cpen333/lab1).
+
+Feel free to discuss approaches and solutions with your classmates, but labs are to be completed individually.  Each student is expected to be able to answer questions about the content, describe their work, and be able to reproduce their code (or parts thereof).
 
 {% include toc.html %}
 
 ## Part 1: Namespaces
 
-Namespaces allow a programmer to group relevant code together and prevent *name collisions* -- two methods with the same name coming from different libraries -- by providing a *namespace scope*.  Methods and variables within the namespace can be referenced from outside by using a special prefix.
+Namespaces allow a programmer to group relevant code together and prevent *name collisions* -- two different methods with the exact same name -- by providing a *namespace scope*.  Methods and variables within the namespace can be referenced from outside by using the special namespace prefix.
 
 ### Q1:  A mini 1D physics library
 
@@ -36,7 +38,7 @@ namespace physics {
 ```
 The `#ifndef ... #endif` part is called an *include guard*.  This protects your code from defining the same functions or classes over and over again if this file happens to be `#include`-ed multiple times.
 
-Add the following functions to the namespace:
+Add the following functions inside the namespace:
 
 ```cpp
 double compute_position(double x0, double v, double dt);
@@ -46,15 +48,15 @@ double compute_acceleration(double v0, double t0, double v1, double t1);
 double compute_acceleration(double f, double m);
 ```
 
-If you need to brush-up on your 1D mechanics, position, velocity, accelration and force are related through
+If you need to brush-up on your 1D mechanics: position, velocity, accelration and force are related through
 
-$$v = \frac{dx}{dt} \approx \frac{x1-x0}{t1-t0}$$
+$$v = \frac{dx}{dt} \approx \frac{x_1-x_0}{t_1-t_0}$$
 
-$$a = \frac{dv}{dt} \approx \frac{v1-v0}{t1-t0}$$
+$$a = \frac{dv}{dt} \approx \frac{v_1-v_0}{t_1-t_0}$$
 
 $$f = m a$$
 
-Note that we have a couple pairs of functions with the exact same name, but with a different number of arguments.  This is called *function overloading*, and is allowed in C\+\+ as long as either the number or arguments or types of arguments differ.  The compiler will know which function to use based on what you call it with.
+Note that we have a couple pairs of functions with the exact same name, but with a different number of arguments.  This is called *function overloading*, and is allowed in C\+\+ as long as either the number of arguments or the types of the arguments differ.  The compiler will figure out which function to use based on what you call it with.
 
 **Note:** Normally, you would only *declare* the functions in the `physics.h` file and put the implementation in a separate `physics.cpp` file.  However, since these methods are quite short, you may wish to put the implementation directly in the header.  In order to prevent "multiple definition" errors, however, you will need to mark the functions as `inline` (i.e. `inline double compute_position(...)`).
 
@@ -78,7 +80,7 @@ int main() {
   double engine_force;
   std::cin >> engine_force;
   
-  // read in drag coefficient
+  // read in drag area coefficient
   std::cout << "Enter the car's drag area (m^2): ";
   double drag_area;
   std::cin >> drag_area;
@@ -88,7 +90,7 @@ int main() {
   double dt;
   std::cin >> dt;
   
-  // read in total simulation time
+  // read in total number of simulation steps
   std::cout << "Enter the number of time steps (int): ";
   int N;
   std::cin >> N;
@@ -96,13 +98,13 @@ int main() {
   // initialize the car's state
   double x = 0;  // initial position
   double v = 0;  // initial velocity
-  double a = 0;  // acceleration
+  double a = 0;  // initial acceleration
   double t = 0;  // initial time
   
   // run the simulation
   for (int i=0; i<N; ++i) {
     
-    // COMPUTE UPDATED STATE HERE
+    // TODO: COMPUTE UPDATED STATE HERE
     
     t += dt;  // increment time
     
@@ -121,7 +123,7 @@ There's a lot to digest in the above code if you have never used stream operator
 
 We also see the stream operators `<<` and `>>`.  The first *sends* data into the stream, and the second *reads* data from the stream.  The advantage of stream operators over your standard `printf`/`scanf` is that they auto-detect the variable type and format it appropriately.  In the code above, we read both doubles and an integer using the same operator.  You can also write your own versions of the operators for custom classes (we will see this in Part 2).
 
-The `std::endl` operator adds an end-of-line character at the end of the stream, and "flushes" the output so everything gets printed to the console.
+The `std::endl` operator adds an end-of-line character at the end of the stream, and "flushes" the output so everything gets printed to the terminal.
 
 #### Implementing the physics
 
@@ -129,9 +131,9 @@ As a car picks up speed, there's a build-up of air-resistance that adds a force 
 
 $$f_d = \frac{1}{2}\rho A C_d\, v^2$$
 
-where $$\rho$$ is the air-density, $$A$$ is the projected surface-area of the car and $$C_d$$ is the car's [*drag coefficient*](https://en.wikipedia.org/wiki/Automobile_drag_coefficient).  This drag force will counter-act the engine's drive force, causing your car to reach a top speed (or slow down if you take your foot off the gas).  A car's *drag area* is the product of the projected surface area and drag coefficient, $$A C_d$$.  Air density at sea-level is about $$\rho=1.225$$ kg/m<sup>3</sup>.  Typical drag coefficients and surface areas for a variety of vehicles can be found [here](https://en.wikipedia.org/wiki/Automobile_drag_coefficient#Drag_area) (e.g. a Toyota Prius has $$A C_d \approx 0.58$$m<sup>2</sup>).  We are going to ignore a lot of other contributing factors to a car's motion, like gearing ratios and rolling friction.
+where $$\rho$$ is the air-density, $$A$$ is the projected surface-area of the car and $$C_d$$ is the car's [*drag coefficient*](https://en.wikipedia.org/wiki/Automobile_drag_coefficient).  This drag force will counter-act the engine's drive force, causing your car to reach a top speed (or slow down if you take your foot off the gas).  A car's *drag area* is the product of the projected surface area and drag coefficient, $$A C_d$$.  Air density at sea-level is about $$\rho=1.225$$ kg/m<sup>3</sup>.  Typical drag coefficients and surface areas for a variety of vehicles can be found [here](https://en.wikipedia.org/wiki/Automobile_drag_coefficient#Drag_area) (e.g. a Toyota Prius has $$A C_d \approx 0.58$$m<sup>2</sup>).  We are going to ignore a lot of other contributing factors to a car's motion, like gear ratios and rolling friction.
 
-To update the car's state, you will need to compute the updated force, acceleration, velocity, and position based on the current values.  Use your physics library functions to compute the new acceleration, velocity, and position, given your new force.  Remember that since your library functions exist in the namespace `physics`, you will need to prefix the function names with `physics::` to access them.
+To update the car's state, you will need to compute the updated force, acceleration, velocity, and position.  Use your physics library functions for this.  Remember that since your library exist in the namespace `physics`, you will need to prefix the function names with `physics::` to access them.
 
 #### Using your simulator
 
@@ -165,13 +167,13 @@ We can represent the two classes and the relationship between them with a *class
 
 ![car class diagram]({{site.url}}/assets/labs/cplusplus/car_class_diagram.png)
 
-The car has several **private** member variables (indicated with a `-` prefix) and **public** member functions (indicated with a `+` prefix).  The state has **public** member variables and a single **public** member function.  Each car can access and modify a state (but a state cannot access or modify a car).
+The car has several **private** member variables (indicated with a `-` prefix) and **public** member functions (indicated with a `+` prefix).  The state has **public** member variables and a single **public** member function.  Each car can access and modify a state, but a state cannot access or modify a car.
 
 #### Creating the `State` class
 
 We will start by creating the `State` class that will hold the car's position, velocity, acceleration, and time information.
 
-1. Create a new file called `State.h`.  In this file, implement the basic class according to the class diagram in the previous section. Since this is a small class, we will put the entire implementation within the file.  You may wish to use *include guards* to prevent the state definition from being included multiple times.
+1. Create a new file called `State.h`.  In this file, implement the basic class according to the class diagram in the previous section. Since this is a small class, we will put the entire implementation within the header file.  You may wish to use *include guards* to prevent the state definition from being included multiple times.
 2. Create a new main program that creates an *instance* of a `State`.  Call the `set(...)` function then print out all the values of the state object to make sure it's working properly.  What happens if you print the values before calling `set(...)`?
 3. Add a default constructor that initializes everything in the state to zero, and an overloaded constructor that allows you to initialize the member variables.
 4. Rather than manually printing out the state information, we will overload the *stream* operator.  Below your `State` class, add the following:<br/><br/>
@@ -188,14 +190,14 @@ We will start by creating the `State` class that will hold the car's position, v
    }  
   
    ```
-   This allows us to use `std::cout << state << std::endl` to print out all our state's information.  We were able to access the state's member variables directly because they are declared as **public**.  If they aren't, you will have to use *accessor methods* to get the desired information (or declare the method as a `friend`, but that is beyond the scope of this course).
+   This allows us to use `std::cout << state << std::endl` to print out all our state's information.  We were able to access the state's member variables directly because they are declared as **public**.  If they aren't, you will have to use *accessor methods* to get the desired information (or declare the method as a `friend`, but that is beyond the scope of this course).  Since this function is defined in the header (as opposed to only being *declared*), we need to mark it as `inline`.  This only applies to stand-alone functions, not classes or member functions.
    
 #### Creating the `Car` class
 
-Now we will create the `Car` class, which will do most of the work for driving.
+Next we will create the `Car` class, which will do most of the work for driving.
 
-1. Create a new file called `Car.h`.  In this file, complete the class *declaration*: declare all the necessary public/private member variables and functions, but do not write implementations in the header.  Note that you may need more variables than what appear in the class diagram.  Since the class diagram leaves some things unspecified, it is up to you to fill in the details however you like.
-2. Create a new file called `Car.cpp`.  In this file, write all the implementation details for the method.  If you're not sure how to do this, check the [class notes]({{site.url}}/lectures/cplusplus/#separating-classes-into-header-and-source-files).<br/>
+1. Create a new file called `Car.h`.  In this file, complete the class *declaration*: declare all the necessary public/private member variables and functions, but do not write implementations in the header.  Note that you may need more variables than what appears in the class diagram.  Since the class diagram leaves some things unspecified, it is up to you to fill in the details however you like.
+2. Create a new file called `Car.cpp`.  In this file, write all the implementation details for the member functions.  If you're not sure how to do this, check the [class notes]({{site.url}}/lectures/cplusplus/#separating-classes-into-header-and-source-files).<br/>
 **Notes:**
   - To use `std::string`, you will have to include the C\+\+ header `<string>`. If you've never used the `std::string` class before, it acts a bit like c-strings (`char*`), but is an object that has member functions for computing things like the length.
   - You should use the `physics.h` library you developed in Part 1 inside the `drive(...)` function implementation.
@@ -229,12 +231,13 @@ The simulator will be our main program that will drive our cars.
        car1.drive(dt);
        car2.drive(dt);
        
-       // XXX print out who's in the lead
+       // TODO: print out who's in the lead
      }
    
      return 0;
    }
    ```
+   Fill in the details to print out the current leader.
 2. Modify the program so that the race between the two cars ends when they both cross the 402.3m mark (a quarter mile) and print out the winner.
 
 
@@ -242,7 +245,7 @@ The simulator will be our main program that will drive our cars.
 
 Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) cars (they are all Toyota Prius hybrids).  We *could* use our constructor and set the car properties each time.  *OR* we can create a `Prius` class with a default constructor that automatically sets the appropriate properties.  In this section, we will create a class hierarchy for our cars and set an entire fleet loose on the highway.
 
-1. Create a car hierarchy of classes consisting of a Prius, Mazda 3, and Tesla Model 3. Each should have only a default constructor which calls the parent `Car` constructor with some appropriate values.  Since these implementations should be quite short, you can fully implement them within the header files.
+1. Create a car hierarchy of classes consisting of a Prius, Mazda 3, and Tesla Model 3. Each should have only a default constructor which calls the parent `Car` constructor with some appropriate values.  Since these implementations should be quite short, you can fully implement them within the header files.  For example, a Prius implementation might look like this:
    ```cpp
    // SAMPLE PRIUS IMPLEMENTATION
    class Prius : public Car {
@@ -256,7 +259,7 @@ Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) c
    virtual void drive(double dt);
    ```
    This will allow children of the `Car` class to override `drive(...)`, using *polymorphism*.
-3. Create a fourth car type, `Herbie`, that overrides the `drive(...)` function.  Herbie doesn't follow the laws of physics, so you can let it do whatever you like.  For Herbie to access some of the member variables in `Car` directly, you will need to change their access to **protected**:
+3. Create a fourth car type, `Herbie`, that overrides the `drive(...)` function.  Herbie doesn't follow the laws of physics, so you can let it do whatever you like (e.g. ignore air resistance, or random velocities, etc...).  For Herbie to access some of the member variables in `Car` directly, you will need to change their access to **protected**:
    ```cpp
    class Car {
      protected:
@@ -291,7 +294,7 @@ Every time you pass around objects by value a *copy* is made.  This may be fine 
 
 - Modify your code so that rather than returning a copy of the car's state, `getState(...)` returns a *pointer* to the internal state.  You may need change other code to access position/velocity using the `->` operator.
 
-Whenever you create an instance of a class in the main code like you would any other primitive variable type, it allocates and stores the object on the [stack](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  For small objects, this is usually fine.  If, however, your objects are quite large, or you are creating a lot of them, it's much more efficient to create them on the [heap](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  The heap also allows you to create dynamically sized memory blocks.
+Whenever you create an instance of a class like you would any other primitive variable type, it allocates and stores the object on the [stack](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  For small objects, this is usually fine.  If, however, your objects are quite large, or you are creating a lot of them, it's much more efficient to create them on the [heap](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  The heap also allows you to create dynamically sized memory blocks.
 
 - Modify the `highway.cpp` program to instead create cars on the heap.  There are several ways you can accomplish this:
    ```cpp
@@ -299,7 +302,7 @@ Whenever you create an instance of a class in the main code like you would any o
    Car** cars2 = new Car*[100];      // a dynamic array of 100 car pointers
    std::vector<Car*> cars3(100);     // a vector filled with 100 car pointers
    ```
-   Note that if you create a sized vector like the above, do not add items using `vector.push_back(...)` since the vector already contains 100 items.  You can assign the pointers directly just as if it were an array:
+   Note that if you create a sized vector like the third option above, do not add items using `vector.push_back(...)` since the vector already contains 100 items.  You can assign the pointers directly just as if it were an array:
    ```cpp
    for (int i=0; i<100; ++i) {
      cars1[i] = new Prius();   // fixed-size array
@@ -307,4 +310,16 @@ Whenever you create an instance of a class in the main code like you would any o
      cars3[i] = new Tesla3();  // vector
    }
    ```
-   Be sure to free all the memory when you are done using `delete` statements.  For the dynamic array, not only will you need to free each `Car` individually, but also the array itself using `delete[] cars2`.
+   Be sure to free all the memory when you are done using `delete` statements.  For the dynamic array, not only will you need to free each `Car` individually, but also the array itself:
+   ```cpp
+   for (int i=0; i<100; ++i) {
+     delete cars1[i];  // fixed-size array
+     delete cars2[i];  // dynamic array
+     delete cars3[i];  // vector
+   }
+   delete[] cars2;  // free dynamic array
+   ```
+
+## Submitting Your Lab
+
+You must demonstrate your completed lab to one of the TAs during a lab session.  He or she may ask you some questions about your work to test your understanding.  Each lab is graded out of 10, and is due by the end of the following lab period (i.e. Lab 1 is due by the end of the Lab 2 time-slot).
