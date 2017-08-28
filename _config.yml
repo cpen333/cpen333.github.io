@@ -6,7 +6,7 @@ baseurl:      ""
 # About/contact
 author:
   name:       C. Antonio Sánchez
-  url:        
+  url:        https://www.github.com/cantonios       
 
 # Others
 markdown: kramdown
