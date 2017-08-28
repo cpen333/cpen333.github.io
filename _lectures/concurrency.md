@@ -1,7 +1,7 @@
 ---
 layout: lecture
 title:  Introduction to Concurrent Systems
-date:   2017-07-14 17:50:00
+date:   2017-09-07 17:50:00
 authors: [Paul Davies, C. Antonio Sánchez]
 categories: [lectures, systems, concurrency]
 usemath: true
