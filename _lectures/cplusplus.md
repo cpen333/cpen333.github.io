@@ -149,7 +149,7 @@ Namespaces give us further control for grouping sets of related variables and fu
 
 ## Classes
 
-*Classes* are a great way of grouping together related variables and functions into one place.  They are devined using the `class` keyword, with the following syntax:
+*Classes* are a great way of grouping together related variables and functions into one place.  They are defined using the `class` keyword, with the following syntax:
 ```cpp
 class name {
  private:
