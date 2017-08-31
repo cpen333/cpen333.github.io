@@ -530,7 +530,7 @@ The following demonstrates some of the differences:
 char d = 10;
 
 cptr = &d;     // changes cptr to now point to d
-*cptd = 10;    // c=5, d=10
+*cptr = 10;    // c=5, d=10
 
 cref = d;      // copies the value of d into whatever
                //   cref is referring to: c=10, d=10
