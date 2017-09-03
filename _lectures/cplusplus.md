@@ -523,7 +523,7 @@ Using references is sometimes more convenient
 char c;        // a simple char
 char &cref;    // a char reference
 cref = c;      // initialize reference to refer to ‘c’ (note NO ‘&’ in initialization)
-cref = 5;	   // set the value of ‘c’ to 5 using the reference (note NO ‘*’)
+cref = 5;      // set the value of ‘c’ to 5 using the reference (note NO ‘*’)
 ```
 The following demonstrates some of the differences:
 ```cpp
