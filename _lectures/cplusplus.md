@@ -183,7 +183,7 @@ Because `width` and `height` are `private`, only the member functions `setValues
 
 ### Creating an Object from a class
 
-An **object** is an *instance* of a class.  By analogy with traditional variables, a `class` introduces a new *data type*, which an **abject** would be the *variable* of a given data type.  For example we might declare instances of an integer variable
+An **object** is an *instance* of a class.  By analogy with traditional variables, a `class` introduces a new *data type*, which an **object** would be the *variable* of a given data type.  For example we might declare instances of an integer variable
 ```cpp
 int a1, a2, a3;
 ```
@@ -515,7 +515,7 @@ Using a reference to a variable is exactly like using the variable itself.  Cons
 ```cpp
 char c;        // a simple char
 char *cptr;    // a pointer to char (i.e a char pointer)
-cptr = c;      // initialize pointer to point to ‘c’
+cptr = &c;     // initialize pointer to the address of ‘c’ (i.e. points to `c')
 *cptr = 5;     // set the value of ‘c’ to 5 using the pointer with the ‘*’
 ```
 Using references is sometimes more convenient
