@@ -116,7 +116,7 @@ int max(int a, int b) {
 } // cpen333
 ```
 
-Inside the namespace, the variables `c` and `d` can be accessed normally.  Outside the namespace, however, they must be qualiified with the prefix `cpen333::`.  For example,
+Inside the namespace, the variables `c` and `d` can be accessed normally.  Outside the namespace, however, they must be qualified with the prefix `cpen333::`.  For example,
 ```cpp
 int c = cpen333::max( cpen333::c, cpen333::d );
 ```
