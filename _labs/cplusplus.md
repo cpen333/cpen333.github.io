@@ -23,7 +23,7 @@ Namespaces allow a programmer to group relevant code together and prevent *name 
 
 ### Q1:  A mini 1D physics library
 
-Will will create a small 1D physics library and simulator.  Start by creating a new header file named `physics.h`, and add the following code to it:
+We will create a small 1D physics library and simulator.  Start by creating a new header file named `physics.h`, and add the following code to it:
 ```cpp
 #ifndef PHYSICS
 #define PHYSICS
