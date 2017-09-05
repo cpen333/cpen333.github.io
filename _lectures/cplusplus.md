@@ -191,7 +191,7 @@ Now that we have classes, we can write something similar to create objects:
 ```cpp
 Rectangle r1, r2, r3;
 ```
-Here `r1`, `r2`, and `r3` are three *instances* of a rectangle (i.e. they are rectangle "objects", or variables of type `Rectancle`).  Each rectangle has hidden within it its *own* unique member variables `width` and `height`.  In C\+\+ we say that the class `Rectangle` *encapsulates* (or forms a "wrapper" around) its member variables and functions.
+Here `r1`, `r2`, and `r3` are three *instances* of a rectangle (i.e. they are rectangle "objects", or variables of type `Rectangle`).  Each rectangle has hidden within it its *own* unique member variables `width` and `height`.  In C\+\+ we say that the class `Rectangle` *encapsulates* (or forms a "wrapper" around) its member variables and functions.
 
 ### Manipulating objects
 
