@@ -455,7 +455,7 @@ class Circle {
  public:
   Circle(double r) : radius(r) {}  // constructor using a member initialization list
   double getArea() {
-    return radius*readius*PI;
+    return radius*radius*PI;
   }
 }
 
