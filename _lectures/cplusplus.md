@@ -195,7 +195,7 @@ Here `r1`, `r2`, and `r3` are three *instances* of a rectangle (i.e. they are re
 
 ### Manipulating objects
 
-Once we have a rectangle object, we can use any of the `public` members of that objected as if they were normal functions or variables by using the dot operator `.` between the *variable name* and *member name*.  This follows the same syntax as accessing the members of a `struct` in C.  For example we can set the rectangle sizes using
+Once we have a rectangle object, we can use any of the `public` members of that object as if they were normal functions or variables by using the dot operator `.` between the *variable name* and *member name*.  This follows the same syntax as accessing the members of a `struct` in C.  For example we can set the rectangle sizes using
 ```cpp
 Rectangle r1, r2, r3;
 r1.setValues(3, 4);
