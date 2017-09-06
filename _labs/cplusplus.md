@@ -145,7 +145,7 @@ We are now going to modify our car simulator, encapsulating some of the function
 
 ### Q1: Object-Oriented implementation of the simulator
 
-A `State` consists of a position, velocity, acceleration, and time.  We want these attributes to be **public** so they can be accessed directly.  Will will also give the state a `set(...)` method so we can easily set all the attributes in one go.
+A `State` consists of a position, velocity, acceleration, and time.  We want these attributes to be **public** so they can be accessed directly.  We will also give the state a `set(...)` method so we can easily set all the attributes in one go.
 
 
 A `Car` has a model name, mass, maximum engine force, and drag area.  The car will also have a `state` associated with it.  We'll give the car the following methods:
