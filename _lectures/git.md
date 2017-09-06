@@ -78,7 +78,7 @@ We also have a set of actions for manipulating the versions:
 <dt>Merge</dt>
 <dd>Pulling together changes in the project from multiple sources to form an updated version.  Changes can be from different users who are sharing their latest modifications, or from different branches to combine functionality (e.g. perhaps you created a separate branch to try something you weren't sure would work, then when it <em>did</em> work, you wanted to integrate it back into the main project).  If a single file is modified by multiple people and the system cannot reconcile the changes, a <em>conflict</em> occurs which must be resolved.</dd>
 <dt>Pull</dt>
-<dd>Retrieve and merge the lastest changes from some remote repository.</dd>
+<dd>Retrieve and merge the latest changes from some remote repository.</dd>
 <dt>Push</dt>
 <dd>Send and merge your latest changes into some remote repository.</dd>
 <dt>Resolve</dt>

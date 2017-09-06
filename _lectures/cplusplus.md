@@ -282,7 +282,7 @@ Apart from code management, there is little difference between defining a member
 
 ### Separating classes into header and source files
 
-Taking this one step further, C\+\+ wisdom dictates that the parts of teh class be separated into a **Rectangle.cpp** *source* file (note the **.cpp** suffix) and a **Rectangle.h** *header* file.  This is not essential, but is demonstrated below.
+Taking this one step further, C\+\+ wisdom dictates that the parts of the class be separated into a **Rectangle.cpp** *source* file (note the **.cpp** suffix) and a **Rectangle.h** *header* file.  This is not essential, but is demonstrated below.
 
 ```cpp
 /***************************************
@@ -537,7 +537,7 @@ cref = d;      // copies the value of d into whatever
                // There is no way to change what variable
                //   cref points to, it is equivalent to c
 ```
-References are mostly used to either simply expressions, for example
+References are mostly used to either simplify expressions, for example
 ```cpp
 Circle &base = c1.getBase();  // get a reference to the cylinder's base
                               // so we can use it over and over again
@@ -791,7 +791,7 @@ class ScoobyDoo : public Dog {
 };
 
 int main() {
-  SkoobyDoo bydoo;
+  ScoobyDoo bydoo;
   Animal* animal = &bydoo;  // Animal pointer to Scooby
   animal->speak();          // "ruh roh"
 }
