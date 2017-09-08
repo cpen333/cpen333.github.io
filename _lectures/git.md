@@ -281,7 +281,7 @@ Now our status doesn't mention anything about the `bin` folder, because we told 
 ```
 $ echo *.sln >> .gitignore
 $ echo *.vcxproj* >> .gitignore
-$ echo Debug >> .gitignore
+$ echo /Debug >> .gitignore
 $ cat .gitignore
 /bin
 *.sln
