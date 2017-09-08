@@ -120,7 +120,7 @@ Inside the namespace, the variables `c` and `d` can be accessed normally.  Outsi
 ```cpp
 int c = cpen333::max( cpen333::c, cpen333::d );
 ```
-can be called from the outside world.  The double-colon `::` is known as the *scope resolution operator*.  It indicates that we are accessing elements within the givennamespace scope.  We will see this scope resolution operator again later when we introduce classs.
+can be called from the outside world.  The double-colon `::` is known as the *scope resolution operator*.  It indicates that we are accessing elements within the givennamespace scope.  We will see this scope resolution operator again later when we introduce classes.
 
 Namespaces have become an intergral part of modern C\+\+ programming.  It is often adviced that if you are writing any code you wish to share with others, it should be contained within a custom namespace with a meaningful name (describing the purpose of your code or library).  If you have tried any C\+\+ programming or examples before, you will likely have already encountered the namespace `std`, which is the *standard* namespace.
 
