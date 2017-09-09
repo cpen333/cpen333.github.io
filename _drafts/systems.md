@@ -1,10 +1,10 @@
 ---
 layout: lecture
 title:  Introduction to System Software Engineering
-date:   2017-09-07 17:50:00
+date:   2017-09-01 17:50:00
 authors: [Paul Davies, C. Antonio Sánchez]
 categories: [lectures, systems, real time]
-published: false
+published: true
 
 ---
 
@@ -61,12 +61,12 @@ Engineering now refers to the use of knowledge in order to purposefully design, 
 
 ## Real-Time Systems
 
-A precise definition of a *real-time system* is hard to pin down.  They are most often described by a set of characteristics or properties, such as the ability to react to inputs within a certain timeframe ,and generate a significant or meaningful outcome.  But how short must the time-frame be to be considered real-time? And how meaningful must the response be?  Five popular definitions are:
+A precise definition of a *real-time system* is hard to pin down.  They are most often described by a set of characteristics or properties, such as the ability to react to inputs within a certain timeframe, and generate a significant or meaningful outcome.  But how short must the time-frame be to be considered real-time? And how meaningful must the response be?  Five popular definitions are:
 
 1. A real-time system is generally a *controlling system*, often *embedded* into equipment so that its existence is not obvious.  It takes in *information* from its environment, *processes it* and *generates a response*.
 2. A real-time system *reacts*, *responds*, and *alters its actions* to *affect* the *environment* in which it is placed.
 3. A real-time system implies that there is something *significant* and important about its *response time*.
-4. A real-time system has a *guaranteed*, *deterministic* *worst-cast response time* to an event under its control.
+4. A real-time system has a *guaranteed*, *deterministic* *worst-case response time* to an event under its control.
 5. A real-time system is one where the correct answer at the wrong time is the wrong answer.
 
 There seems to be an emphasis on response time, but note that there are no explicit mention that the response must be generated instantaneously, or even within a specific time period.  That is because whether or not a system is considered real-time is always dependent on **context** and the particular application at hand.

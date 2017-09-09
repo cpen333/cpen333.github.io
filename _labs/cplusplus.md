@@ -173,8 +173,8 @@ The car has several **private** member variables (indicated with a `-` prefix) a
 
 We will start by creating the `State` class that will hold the car's position, velocity, acceleration, and time information.
 
-1. Create a new file called `State.h`.  In this file, implement the basic class according to the class diagram in the previous section. Since this is a small class, we will put the entire implementation within the header file.  You may wish to use *include guards* to prevent the state definition from being included multiple times.
-2. Create a new main program that creates an *instance* of a `State`.  Call the `set(...)` function then print out all the values of the state object to make sure it's working properly.  What happens if you print the values before calling `set(...)`?
+1. Create a new file called `State.h`.  In this file, implement the basic class according to the class diagram in the previous section. Since this is a small class, we will put the entire class implementation within the header file.  You may wish to use *include guards* to prevent the state definition from being included multiple times.
+2. Create a new main program in a separate source file that creates an *instance* of a `State`.  Call the `set(...)` function then print out all the values of the state object to make sure it's working properly.  What happens if you print the values before calling `set(...)`?
 3. Add a default constructor that initializes everything in the state to zero, and an overloaded constructor that allows you to initialize the member variables.
 4. Rather than manually printing out the state information, we will overload the *stream* operator.  Below your `State` class, add the following:<br/><br/>
    ```cpp
