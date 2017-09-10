@@ -482,7 +482,7 @@ $ git remote -v
 origin  https://github.com/cpen333/cubicsolver.git (fetch)
 origin  https://github.com/cpen333/cubicsolver.git (push)
 ```
-Git has set up a "remote" storage location which it named `origin` that points to the original GitHub repository.  The *(fetch)* location indicates that we call *pull* new changes from `origin` if someone else ever updates it.  The *(push)* location indicates that we can *push* our changes back up to `origin` (though if you tried, you would get an error since you don't have write permission on the server).
+Git has set up a "remote" storage location which it named `origin` that points to the original GitHub repository.  The *(fetch)* location indicates that we can *pull* new changes from `origin` if someone else ever updates it.  The *(push)* location indicates that we can *push* our changes back up to `origin` (though if you tried, you would get an error since you don't have write permission on the server).
 
 We are now going to set up a different remote on either GitHub or GitLab.  Sign in to your account and create a new repository online.  On GitHub, you do this by clicking on the `+` icon in the top-right next to your avatar and selecting **New repository**.  In GitLab, you click on the `+` icon on the top-right toolbar and select **New project**.  Give the new repository the name **cubicsolver**, give it a short description, then click on **Create repository**/**Create project**.  GitHub/GitLab will then give you some brief instructions on how to commit your initial code.  We will modify these instructions slightly to account for the fact that we will be working with multiple remotes.
 
