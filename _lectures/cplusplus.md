@@ -628,7 +628,7 @@ We can *dereference* a pointer, getting at the underlying object, using the `*` 
 Rectangle r2 = *p1;    // create a copy of r1
 Rectangle &r3 = *p1;   // create a reference to r1
 ```
-The first *deferences* the pointer `p1` to get at the underlying rectangle `r1`, but then the `=` operator says "create a new rectangle  `r2` and set the contents equal to `r1`".  The second operation, however, creates a reference `r3` directly to `r1`, so the two are now treated as the same thing.  Changing `r2` does not affect `r1` at all, since it is a copy.  Changing `r3` **does** change `r1`, since they are the same object.  Confusing?  It can be, but this will get easier with practice.
+The first *dereferences* the pointer `p1` to get at the underlying rectangle `r1`, but then the `=` operator says "create a new rectangle  `r2` and set the contents equal to `r1`".  The second operation, however, creates a reference `r3` directly to `r1`, so the two are now treated as the same thing.  Changing `r2` does not affect `r1` at all, since it is a copy.  Changing `r3` **does** change `r1`, since they are the same object.  Confusing?  It can be, but this will get easier with practice.
 
 ### Dynamic Memory Allocations: operators `new` and `delete`
 
