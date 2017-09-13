@@ -81,13 +81,13 @@ Write a method to check that the outputs of both of your implementations are ind
 
 ### Measuring computation time
 
-To measure computation time, we will use more modern features of C\+\+, specifically the `chrono` library.  The `chrono` library contains a set of classes and functions for measuring times in different units, and computing durations.  The classes are heavily templated, which can make it a little confusing to use for beginners, but for the most part you can just copy and paste a select few common lines of code.
+To measure computation time, we will use more modern features of C\+\+, specifically the `<chrono>` library.  The `<chrono>` library contains a set of classes and functions for measuring times in different units, and for computing and converting durations.  The classes are heavily templated, which can make it a little confusing to use for beginners, but for the most part you can just copy and paste a select few lines of code.
 
 To get the current time at the highest possible clock resolution, use
 ```cpp
 auto time = std::chrono::high_resolution_clock::now();
 ```
-There are three possible clocks which you could choose from, `steady_clock`, `system_clock`, and `high_resolution_clock`.  We are using the high resolution one in the hope of measuring our computation time with the most accuracy (though technically we are dealing with precision, not accuracy).  We use the `auto` keyword mainly for convenience.  The actual type of the returned value is `std::chrono::time_point<std::chrono::high_resolution_clock>`, which is a mouthful.  The `auto` keyword auto-detects this type so we don't have to know, care, or write it out.
+There are three possible clocks which you could choose from: `steady_clock`, `system_clock`, and `high_resolution_clock`.  We are using the high resolution one in the hope of measuring our computation time with the most accuracy (though technically we are dealing with precision, not accuracy).  We use the `auto` keyword mainly for convenience.  The actual type of the returned value is `std::chrono::time_point<std::chrono::high_resolution_clock>`, which is a mouthful.  The `auto` keyword auto-detects this type so we don't have to know, care, or write it out.
 
 The difference between two time points creates a `std::chrono::duration<Rep,Period>`, where `Rep` and `Period` are more templated types.  When taking the difference between two high resolution clock timepoints, this expands to `std::chrono::duration<long long int, std::ratio<1, 1000000000>>`.  But again, we shouldn't really care since we will be using the `auto` keyword:
 ```cpp
@@ -159,7 +159,7 @@ In order to estimate the value of PI using random sampling, we need to define a 
 
 ![circle in square]({{site.url}}/assets/labs/multithread/circle_in_square.png)
 
-The area of the unit circle is simply $$\pi$$.  Surround this with a bounding square with side-lengths 2, which has an area of 4.  If we were to randomly generate samples inside the square region [-1,1]x[-1,1], we would expect that the points would fall inside or on the unit circle with a probability of $$p=\pi/4$$, the ratio of the two areas.  If a random sample falls within the circle, we call that a *hit*.  If it falls outside the circle, we call that a *miss*.  All we need to do now is generate samples within the square region, count the fraction of hits, and multiply by four to recover the estimate of $$\pi$$.
+The area of the unit circle is simply $$\pi$$.  Surround this with a bounding square.  The square has side-lenghts 2 and an area of 4.  If we were to randomly generate samples inside the square region [-1,1]x[-1,1], we would expect that the points would fall inside or on the unit circle with a probability of $$p=\pi/4$$, the ratio of the two areas.  If a random sample falls within the circle, we call that a *hit*.  If it falls outside the circle, we call that a *miss*.  All we need to do now is generate samples within the square region, count the fraction of hits, and multiply by four to recover the estimate of $$\pi$$.
 
 Create a new source file called `pi.cpp`, or download the template provided on [GitHub](https://github.com/cpen333/lab2).  First, create a single-threaded method that estimates the value of PI.  The layout of the file should look something like the following:
 
@@ -294,7 +294,7 @@ Now are you seeing a speed-up?  With so few threads, you can increase the number
 
 ### Monte-Carlo integration
 
-One very common application of Monte-Carlo methods is numerical integration.  Consider some complex function $$f(x)$$ defined over some volume $$V$$.  How can we pose this in the random sampling framework?
+One very common application of Monte-Carlo methods is numerical integration.  Consider some function $$f(x)$$ defined over some volume $$V$$.  How can we pose the integral of this function in a random sampling framework?
 
 The most basic assumption we can make when approximating an integral is that the function is constant over the entire volume.  In such a case, the integral becomes
 
