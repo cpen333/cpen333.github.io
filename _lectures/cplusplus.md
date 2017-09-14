@@ -140,8 +140,8 @@ Namespaces give us further control for grouping sets of related variables and fu
   ```
   - support several "root" functions: 
   ```cpp
-  int isqrt(int x)          // integer square root
-  int icbrt(int x)          // integer cubed root
+  int isqrt(int x);         // integer square root
+  int icbrt(int x);         // integer cubed root
   int iroot(int x, int n);  // integer n-th root
   ```
   that returns the largest integer that is less-than or equal-to the desired root (Hint: you can often use binary search for these types of problems, or logarithms if you're careful with rounding).

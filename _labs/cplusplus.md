@@ -322,4 +322,4 @@ Whenever you create an instance of a class like you would any other primitive va
 
 ## Submitting Your Lab
 
-You must demonstrate your completed lab to one of the TAs during a lab session.  He or she may ask you some questions about your work to test your understanding.  Each lab is graded out of 10, and is due by the end of the following lab period (i.e. Lab 1 is due by the end of the Lab 2 time-slot).
+You must demonstrate your completed lab to one of the TAs during a lab session.  He or she may ask you some questions about your work to test your understanding.  Each lab is graded out of 5, and is due by the end of the following lab period (i.e. Lab 1 is due by the end of the Lab 2 time-slot).
