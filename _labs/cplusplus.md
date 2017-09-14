@@ -270,7 +270,8 @@ Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) c
 <img src="{{site.url}}/assets/labs/cplusplus/car_hierarchy.png" alt="Car hierarchy" width="80%"/><br/><br/>
 4. Create a new program in a file named `highway.cpp`.  In the main method, create a mixed fleet of 100 cars.  Start them all and control their speed so that they remain driving at around 100km/h (27.8m/s).  Let them drive for a few minutes (simulation time) and print out their positions.  If you can't control Herbie, that's fine, he tends to veer off the road anyways.<br/><br/>
 **Notes:**
-  - You can store all the cars in an array of `Car`s, or if you're adventurous, you can use the STL [vector](http://en.cppreference.com/w/cpp/container/vector) container defined in the `<vector>` header.  You can create a vector and add to it with
+  - ~~You can store all the cars in an array of `Car`s, or if you're adventurous, you can use the STL [vector](http://en.cppreference.com/w/cpp/container/vector) container defined in the `<vector>` header.  You can create a vector and add to it with~~
+  **Update:** storing all cars in a vector or array of `Car` leads to "Object Slicing", which will break polymorphism and prevent Herbie from using his overridden version.  This is more than you need to know.  Skip down to Q4.
    ```cpp
    std::vector<Car> cars;
    cars.push_back(Prius());
@@ -284,7 +285,6 @@ Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) c
      car.drive(dt);
    }
    ```
-5. Modify `Car.h` to *remove* the `virtual` declaration on `drive(...)`.  What does `Herbie` do now?  Is it what you expect?  *Should* it be what you expect?
 
 ### Q3: Pointers and Memory Management
 
@@ -296,7 +296,7 @@ Every time you pass around objects by value a *copy* is made.  This may be fine 
 
 Whenever you create an instance of a class like you would any other primitive variable type, it allocates and stores the object on the [stack](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  For small objects, this is usually fine.  If, however, your objects are quite large, or you are creating a lot of them, it's much more efficient to create them on the [heap](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  The heap also allows you to create dynamically sized memory blocks.
 
-- Modify the `highway.cpp` program to instead create cars on the heap.  There are several ways you can accomplish this:
+1. Modify the `highway.cpp` program to instead create cars on the heap.  There are several ways you can accomplish this:
    ```cpp
    Car* cars1[100];                  // a fixed-size array of 100 car pointers
    Car** cars2 = new Car*[100];      // a dynamic array of 100 car pointers
@@ -319,6 +319,8 @@ Whenever you create an instance of a class like you would any other primitive va
    }
    delete[] cars2;  // free dynamic array
    ```
+   
+2. Modify `Car.h` to *remove* the `virtual` declaration on `drive(...)`.  What does `Herbie` do now?  Is it what you expect?  *Should* it be what you expect?
 
 ## Submitting Your Lab
 
