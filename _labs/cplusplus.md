@@ -271,7 +271,7 @@ Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) c
 4. Create a new program in a file named `highway.cpp`.  In the main method, create a mixed fleet of 100 cars.  Start them all and control their speed so that they remain driving at around 100km/h (27.8m/s).  Let them drive for a few minutes (simulation time) and print out their positions.  If you can't control Herbie, that's fine, he tends to veer off the road anyways.<br/><br/>
 **Notes:**
   - ~~You can store all the cars in an array of `Car`s, or if you're adventurous, you can use the STL [vector](http://en.cppreference.com/w/cpp/container/vector) container defined in the `<vector>` header.  You can create a vector and add to it with~~
-  **Update:** storing all cars in a vector or array of `Car` leads to "Object Slicing", which will break polymorphism and prevent Herbie from using his overridden version.  This is more than you need to know.  Skip down to Q4.
+  **Update:** storing all cars in a vector or array of `Car` leads to "Object Slicing", which will break polymorphism and prevent Herbie from using his overridden version.  This is more than you need to know.  Skip down to Q3.
    ```cpp
    std::vector<Car> cars;
    cars.push_back(Prius());
