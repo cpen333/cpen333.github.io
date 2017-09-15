@@ -239,7 +239,7 @@ std::thread::hardware_concurrency()
 A better way of splitting up the work is to create a small number of threads, and let each thread handle a certain number of samples.  Create a new function that performs the random sampling using the same number of threads as there are cores on your machine.  To avoid data sharing between threads, keep $$N$$ separate hit counts and add them together once all threads are done.
 ```cpp
 // count number of hits using nsamples, populates hits[idx]
-void pi_hits(std::vector<int> hits, int idx, int nsamples) {
+void pi_hits(std::vector<int>& hits, int idx, int nsamples) {
 
   // single instance of random engine and distribution
   static std::default_random_engine rnd;
