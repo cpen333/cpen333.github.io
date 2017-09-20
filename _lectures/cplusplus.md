@@ -705,7 +705,7 @@ class Polygon {
   int width, height;   // private
 
  public:
-  Polygon(int w, int h) : width(w), height(b) {}  // constructor
+  Polygon(int w, int h) : width(w), height(h) {}  // constructor
   int getWidth() { return width; }                // `getters'
   int getHeight() { return width; }
   void setWidth(int w) { width=w; }               // `setters'
