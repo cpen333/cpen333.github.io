@@ -7,7 +7,7 @@ categories: [lectures, c++, object oriented]
 
 ---
 
-# Introduction to C\+\+ 
+# Introduction to C\+\+
 {:.no_toc}
 
 **Authors:** Paul Davies (UBC), C. Antonio Sánchez (UBC)
@@ -138,7 +138,7 @@ Namespaces give us further control for grouping sets of related variables and fu
   int div(int x, int y);    // result = x/y
   int pow(int x, int n);    // result = x^n
   ```
-  - support several "root" functions: 
+  - support several "root" functions:
   ```cpp
   int isqrt(int x);         // integer square root
   int icbrt(int x);         // integer cubed root
@@ -154,7 +154,7 @@ Namespaces give us further control for grouping sets of related variables and fu
 class name {
  private:
   // some private variables and functions
-  
+
  public:
   // some public variables and functions
 };
@@ -168,7 +168,7 @@ By default, all members of a class are `private` unless specified otherwise.  Fo
 ```cpp
 class Rectangle {
   int width, height;
-  
+
  public:
   void setValues(int x, int y);
   int  getArea();
@@ -213,13 +213,13 @@ Here is a complete example:
 // Rectangle class
 class Rectangle {
   int width, height;
-  
+
  public:
   void setValues(int x, int y) {
     width = x;
     height = y;
   }
-  
+
   int getArea() {
     return width*height;
   }
@@ -229,10 +229,10 @@ int main() {
   Rectangle r1, r2;             // two rectangle instances
   r1.setValues(3, 4);
   r2.setValues(5, 6);
-  
+
   std::printf("r1's area is %d\n", r1.getArea());  // prints 12
   std::printf("r2's area is %d\n", r2.getArea());  // prints 30
-  
+
   return 0;
 }
 ```
@@ -248,7 +248,7 @@ In the example above, we embedded the actual code for the functions `setValues(.
 // Rectangle class
 class Rectangle {
   int width, height;
-  
+
  public:
   void setValues(int x, int y);  // DECLARATION of the class function
   int getArea();                 // DECLARATION of the class function
@@ -269,10 +269,10 @@ int main() {
   Rectangle r1, r2;             // two rectangle instances
   r1.setValues(3, 4);
   r2.setValues(5, 6);
-  
+
   std::printf("r1's area is %d\n", r1.getArea());  // prints 12
   std::printf("r2's area is %d\n", r2.getArea());  // prints 30
-  
+
   return 0;
 }
 ```
@@ -345,13 +345,13 @@ The Rectangle class above can easily be improved by adding a proper constructor 
 // Rectangle class
 class Rectangle {
   int width, height;
-  
+
  public:
   Rectangle(int x, int y) {  // CONSTRUCTOR
     width = x;
     height = y;
   }
-  
+
   int getArea() {
     return width*height;
   }
@@ -361,7 +361,7 @@ int main() {
   Rectangle r1(3, 4), r2(5, 6);   // two rectangle instances, initialized
   std::printf("r1's area is %d\n", r1.getArea());  // prints 12
   std::printf("r2's area is %d\n", r2.getArea());  // prints 30
-  
+
   return 0;
 }
 ```
@@ -383,23 +383,23 @@ Like any other C\+\+ function (and unlike functions in simple C), a constructor 
 // Rectangle class
 class Rectangle {
   int width, height;
-  
+
  public:
   Rectangle(int x, int y) {  // CONSTRUCTOR with width/height
     width = x;
     height = y;
   }
-  
+
   Rectangle(int x) {         // CONSTRUCTOR creating a square
     width = x;
     height = x;
   }
-  
+
   Rectangle() {              // DEFAULT CONSTRUCTOR
     width = 0;
     heigh = 0;
   }
-  
+
   int getArea() {
     return width*height;
   }
@@ -411,7 +411,7 @@ int main() {
   std::printf("r1's area is %d\n", r1.getArea());  // prints 12
   std::printf("r2's area is %d\n", r2.getArea());  // prints 25
   std::printf("r3's area is %d\n", r3.getArea());  // prints 0
-  
+
   return 0;
 }
 ```
@@ -469,7 +469,7 @@ class Cylinder {
   }
 }
 ```
-The `Cylinder` has a member variable `base` whose type is another class (a `Circle`).  Because objects of class `Circle` can oly be constructed with a parameter (i.e. the only available circle constructor requires an `int` argument), `Cylinder`'s constructor need to call `base`'s constructor, and the only way to do this is through a *member initializer list*.
+The `Cylinder` has a member variable `base` whose type is another class (a `Circle`).  Because objects of class `Circle` can only be constructed with a parameter (i.e. the only available circle constructor requires an `int` argument), `Cylinder`'s constructor need to call `base`'s constructor, and the only way to do this is through a *member initializer list*.
 
 #### Copy Constructors and References
 
@@ -703,7 +703,7 @@ For this course, we'll mostly stick with `public` inheritance (though if you loo
 ```cpp
 class Polygon {
   int width, height;   // private
-  
+
  public:
   Polygon(int w, int h) : width(w), height(b) {}  // constructor
   int getWidth() { return width; }                // `getters'
@@ -751,7 +751,7 @@ class Dog : public Animal {
 int main() {
   Dog dog;      // creates a new dog
   dog.speak();  // "woof"
-  
+
   Animal& dogref = dog;  // reference to dog
   dogref.speak();        // "grunt"
   return 0;
@@ -778,7 +778,7 @@ class Dog : public Animal {
 int main() {
   Dog dog;      // creates a new dog
   dog.speak();  // "woof"
-  
+
   Animal& dogref = dog;  // reference to dog
   dogref.speak();        // "woof" (SAME AS BEFORE)
   return 0;
@@ -894,6 +894,3 @@ Some of this material is derived from the [cplusplus.com tutorials on classes](h
 Have a look at the following resources to learn a bit more.  The C\+\+ tutorials are a great start for beginners, and goes through many of the topics covered here.  For the brave or more advanced programmer, have a look at the Guru-of-the-Week blog, which contains an interesting set of problems about the nitty-gritty details of the C\+\+ language that can help make you a guru in no time.
 - C++ Language Tutorials:  [http://www.cplusplus.com/doc/tutorial/](http://www.cplusplus.com/doc/tutorial/)
 - Herb Sutter's Guru-of-the-Week: [https://herbsutter.com/gotw/](https://herbsutter.com/gotw/), [http://www.gotw.ca/gotw/](http://www.gotw.ca/gotw/)
-
-
-
