@@ -615,7 +615,7 @@ cpen333::process::mutex::unlink("system_logger");
 ```
 to *unlink* it before your code will run again.
 
-#### Questions
+### Questions
 
 1. What happens if you don't use a mutex to enforce mutual exclusion?
 2. What is the smallest section of code that needs to be guarded?
