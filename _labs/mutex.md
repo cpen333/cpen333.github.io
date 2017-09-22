@@ -252,7 +252,7 @@ We already have a word count function that we can make use of.  Now all we need 
 
 If you open one of the plays, such as Romeo and Juliet, you will notice that *most* lines containing dialogue either begin with two spaces or with four spaces.  If the line starts with two, the line contains the name (or short-form) of the character speaking, followed by a period, followed by the character's dialogue.  If the line starts with four, it is usually a continuation of the previous character's lines.  This approach is by no means perfect, but should be sufficient for us to determine which Shakespearean character is the most verbose.
 
-We have provided much of the code for you in this exercise.  We will map *Character* \-> *Word Count* in an `std::map`.  We will parse a selection of Shakespeare's plays, extract the speakers of each line of dialogue, count the number of words, and update the counts in the map.  This should all be done in a multithreaded way.
+We have provided much of the code for you in this exercise.  We will map *Character* → &copy; *Word Count* in an `std::map`.  We will parse a selection of Shakespeare's plays, extract the speakers of each line of dialogue, count the number of words, and update the counts in the map.  This should all be done in a multithreaded way.
 
 ```cpp
 #include <map>
@@ -435,7 +435,7 @@ int main() {
 ```
 The code leaves several sections blank.  It is your job to fill in these sections.  In particular, you will need to
 
-1. Modify `count_character_words` to insert word counts into the *Character* \-> *Word Count* map in a thread-safe way.
+1. Modify `count_character_words` to insert word counts into the *Character* → *Word Count* map in a thread-safe way.
 2. Implement the comparator `wc_greater_than` for sorting characters by number of spoken words, descending.
 3. Write multithreading code in the `main` method to parse each file and populate the word-count map.
 
@@ -449,7 +449,7 @@ A third option is to modify your project settings so that the working directory 
 
 #### Thread Safety
 
-If two threads try to modify the *Character* \-> *Word Count* map concurrently, the behaviour is undefined.  Sometimes this will throw an error immediately, sometimes everything will *appear* to work correctly -- as in it won't crash -- but your results will seem to vary slightly every time you run your program.  If this happens, you'll often get an error when the program exits.
+If two threads try to modify the *Character* → *Word Count* map concurrently, the behaviour is undefined.  Sometimes this will throw an error immediately, sometimes everything will *appear* to work correctly -- as in it won't crash -- but your results will seem to vary slightly every time you run your program.  If this happens, you'll often get an error when the program exits.
 
 If the program doesn't crash right away, these concurrent modification errors can be very difficult to track down and fix.  If ever your program crashes when it closes, it's because you have overrun some memory somewhere.  It was possibly overwriting some other variables in the process, but didn't do enough damage to trigger an error at the time.  You see the error at the end as the program tries to clean up its allocated memory and notices... hey, this vector/map/array was supposed to be done by now, but seems to keep going past the end!
 
