@@ -6,11 +6,6 @@ baseurl:      ""
 # exclude files
 exclude:
          - vendor
-         - Gemfile
-         - Gemfile.lock
-         - node_modules
-         - gulpfile.js
-         - package.json
 
 # About/contact
 author:
