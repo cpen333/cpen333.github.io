@@ -11,7 +11,7 @@ categories: [labs, threads, multithread, shakespeare, testing]
 # Lab 3 -- Testing and Mutexes
 {:.no_toc}
 
-In this lab, we will learn about unit testing, and will get some practice with thread synchronization using mutexes.  First we will create a method that counts the number of words in a string, and test this thoroughly to ensure reliability under a variety of circumstances.  Next, we will use this method to help us count how many words each character has to memorize in a collection of plays by Shakespeare.  We will then switch gears and look at synchronization between multiple processes.
+In this lab, we will first learn about unit testing, then will get some practice with thread synchronization using mutexes.  First we will create a method that counts the number of words in a string, and test this thoroughly to ensure reliability under a variety of circumstances.  Next, we will use this method to help us count how many words each character has to memorize in a collection of plays by Shakespeare.  For the second exercise, we will switch gears and look at synchronization between multiple processes.
 
 To help get you started, some of the code is posted on GitHub [here (https://github.com/cpen333/lab3)](https://github.com/cpen333/lab3).
 
@@ -28,7 +28,7 @@ Consider the function:
 /**
  * Counts number of words, separated by spaces, in a line.
  * @param line string in which to count words
- * @param start_idx starting index to search for words
+ * @param start_idx starting index to search for words (>= 0)
  * @return number of words in the line
  */
 int word_count(const std::string& line, int start_idx);
@@ -69,7 +69,7 @@ int word_count(const std::string& line, int start_idx) {
 ```
 Note that we do not need to mark `word_count` as `inline` here because we have separated the declaration from the implementation (*the implementation inside `word_count.cpp` will only be compiled once*).
 
-Do you think you've implemented the function correctly?  Now we're going to test it.  Unit tests are usually written in a separate testing source file so that your tests don't clutter your actual code.  You don't want these tests to make it into the production code.  We are going to manually create some unit tests in a file called `word_count_test.cpp`:
+Do you think you've implemented the function correctly?  Now we're going to test it.  Unit tests are usually written in a separate testing source file so that your tests don't clutter your actual production code.  We are going to manually create some unit tests in a file called `word_count_test.cpp`:
 
 ```cpp
 #include "word_count.h"
@@ -147,7 +147,7 @@ We start by creating an exception class called `UnitTestException` that will be 
 
 We then define a *tester* function that takes the inputs along with an expected answer, calls our `word_count` function, then throws the exception if we get something unexpected.
 
-Finally, our main method has a `try - catch` block that will call our tester function with a variety of inputs and expected outputs.  If any tests fail, the `catch` part catches the exception and prints out information about the failed test so we can try to debug our code.
+Finally, our main method has a `try - catch` block that will call our tester function with a variety of inputs and expected outputs.  If any tests fail, the `catch` part catches the exception and prints out information about the failed test so we can debug our code.
 
 **Your task:** add a variety of tests.  Try to "break" your own code.  It is very rare to have a method that runs perfectly, for all inputs, on a first or second try.  You should have enough tests so that you've covered all expected *behaviours* of your method.  Think about possible partitions of the input space, as well as boundary/edge/corner cases.  In particular, think about:
 - different numbers of words in a string
@@ -158,9 +158,9 @@ Finally, our main method has a `try - catch` block that will call our tester fun
 
 ### Maps
 
-Maps are *incredibly* useful data structures.  Conceptually, they are quite simple: all they do is associate pairs of data together.  Think about an array or vector.  When you set `array[10] = "Steve"`, in some sense you are associating the number 10 with the name *Steve*.  You can later retrieve the name associated with number 10 using the `std::string name = array[10]`.  
+Maps are *incredibly* useful data structures.  Conceptually, they are quite simple: they associate pairs of data together.  Think about an array or vector.  When you set `array[10] = "Steve"`, in some sense you are associating the number 10 with the name *Steve*.  You can later retrieve the name associated with number 10 using `std::string name = array[10]`.  
 
-Maps allow us to generalize this, associating pretty much any type of data with any other type of data.  For example, we can have a map of strings to numbers using
+Maps generalize this, associating pretty much any type of data with any other type of data.  For example, we can have a map of strings to numbers:
 ```cpp
 #include <map>
 //...
@@ -187,11 +187,12 @@ map["Georgia"] = 16;
 ```
 this will overwrite the original value.
 
-You can check a map to see if a particular key exists using the `find(...)` method:
+You can check a map to see if a particular key exists using the `.find(...)` member function:
 ```cpp
 auto it = map.find("Gregory");
 if (it == map.end()) {
-  // not found
+  // not found, so add it
+  map.insert({"Gregory", 0});
 } else {
   // found
   std::string key = it->first;
@@ -218,7 +219,7 @@ std::vector<std::string> names = {"Bob", "Xin", "Mohammad", "Carlos"};
 
 std::sort(names.begin(), names.end());
 ```
-The `sort(...)` method takes in two *iterators* as arguments, and sorts everything in between (including the first but excluding the second).  This works fine for things like strings that have a natural `<` comparison operator, but how do we handle sorting of some other data structures like pairs of custom objects?  Well, we can write a special *comparator* to order them.  Comparators are *things* that accept two instances of your objects and return a boolean that is `true` if the items are in the correct order, or `false` if they should be switched.  You can write a method as a comparator, or a class, or a lambda... anything that has the form
+The `sort(...)` method takes in two *iterators* as arguments, and sorts everything in between (including the first but excluding the second).  This works fine for things like strings that have a natural `<` comparison operator, but how do we handle sorting of some other data structures like pairs of custom objects?  Well, we can write a special *comparator* to order them.  Comparators are *things* that accept two instances of your objects and return a boolean that is `true` if the items are in the correct order, or `false` if they should be swapped.  You can write a method as a comparator, or a class, or a lambda... anything that has the form
 ```cpp
 bool compare(const type& a, const type& b);
 ```
@@ -230,29 +231,30 @@ bool reverse_compare(const std::string& a, const std::string& b) {
 ```
 and then use this method to sort our list of names in descending order by supplying the comparator:
 ```cpp
-std::sort(names.begin(), names.end(), reverse_compare);
+std::sort(names.begin(), names.end(), reverse_compare); // sort in reverse order
 ```
-The one caveat to writing comparators is that you need to enforce a *unique* ordering.  For example, let's say we want to sort pairs of `{name, number}` by increasing number.  If we write our comparator as
+The one caveat to writing comparators is that we need to enforce a *unique* ordering.  For example, let's say we want to sort pairs of `{name, number}` by increasing number.  If we write our comparator as
 ```cpp
 bool bad_sort_by_number(const std::pair<std::string,int>& a, const std::pair<std::string,int>& b) {
   return a.second < b.second;
 }
 ```
-then the ordering would not be unique.  If two *different* names are paired with the same number -- e.g. `{Dave, 10}`, `{Steve, 10}` -- it would be random which one would come first once sorted.  To enforce a unique ordering, you'll want to do something like
+then the ordering would *not* be unique.  If two *different* names are paired with the same number -- e.g. `{Dave, 10}`, `{Steve, 10}` -- it would be random which one would come first once sorted.  To enforce a unique ordering, we'll want to do something like
 - sort by numbers first
 - sort by names second if numbers are equal
+In our example this will always put `{Dave, 10}` before `{Steve, 10}`.
 
 ### Counting Words in Shakespeare
 
-Shakespeare's characters talk a lot in his plays.  For example, Othello says approximately 12000 words, and Romeo about 10000.  That's a lot of memorization.  What characters say the most in all of Shakespeare's plays?
+Shakespeare's characters talk a lot in his plays.  For example, Othello says approximately 12000 words, and Romeo about 10000.  That's a lot of memorization.  Which characters say the most in all of Shakespeare's plays?
 
 We already have a word count function that we can make use of.  Now all we need are some files to use it on.
 
 [Project Gutenburg](https://www.gutenberg.org/) offers free digital copies of many literary works for which the copyright has either expired or never existed.  It's a great resource for reading many of the classics.  In the GitHub `data` folder [here](https://github.com/cpen333/lab3/tree/master/data) you will find all of Shakespeare's works.  Note that not all of them are plays though.
 
-If you open one of the plays, such as Romeo and Juliet, you will notice that *most* lines containing dialogue either begin with two spaces or with four spaces.  If the line starts with two, the line contains the name (or short-form) of the character speaking, followed by a period, followed by the character's dialogue.  If the line starts with four, it is usually a continuation of the previous character's lines.  This approach is by no means perfect, but should be sufficient for us to determine which Shakespearean character is the most verbose.
+If you open one of the plays, such as Romeo and Juliet, you will notice that *most* lines containing dialogue either begin with two spaces or with four spaces.  If the line starts with two, the line contains the name (or short-form) of the character speaking, followed by a period, followed by the character's dialogue.  If the line starts with four spaces, it is usually a continuation of the previous character's lines.  This approach is by no means perfect, but should be sufficient for us to determine which Shakespearean character is the most verbose.
 
-We have provided much of the code for you in this exercise.  We will map *Character* → &copy; *Word Count* in an `std::map`.  We will parse a selection of Shakespeare's plays, extract the speakers of each line of dialogue, count the number of words, and update the counts in the map.  This should all be done in a multithreaded way.
+We have provided much of the code for you in this exercise.  We will map *Character* → *Word Count* in an `std::map`.  To populate the map, we will parse a selection of Shakespeare's plays, extract the speakers of each line of dialogue, count the number of words, and update the counts.  This should all be done in a thread-safe multithreaded way.
 
 ```cpp
 #include <map>
@@ -420,9 +422,9 @@ int main() {
       "data/shakespeare_romeo_and_juliet.txt",
   };
 
-  //============================================================
-  // YOUR IMPLEMENTATION HERE TO COUNT WORDS IN MULTPLE THREADS
-  //============================================================
+  //=============================================================
+  // YOUR IMPLEMENTATION HERE TO COUNT WORDS IN MULTIPLE THREADS
+  //=============================================================
 
   auto sorted_wcounts = sort_characters_by_wordcount(wcounts);
 
@@ -443,9 +445,7 @@ The code leaves several sections blank.  It is your job to fill in these section
 
 The data files for this exercise need to be someplace where your program can find them.  One way is to hard-code the path in the list of filenames.  However, this will not be very portable between machines.  
 
-The easier way is to copy the data over to the same directory as the executable (or the directory you run the executable from), then use relative path names in code to load the files.  If you are using CMake, this will automatically be taken care of for you.
-
-A third option is to modify your project settings so that the working directory contains the `data` folder.  You can do this in Visual Studio by right-clicking on your project and selecting `Properties > Debugging > Working Directory`.  By default this is set to the project directory, so as long as the `data` folder is in the project directory itself, it can be found using relative pathnames.  Otherwise, you can set an appropriate working directory to make this easier.
+The easier way is to copy the data over to the *working directory* of your executable, then use relative path names in code to load the files.  If you are using CMake, this will automatically be taken care of for you.  Otherwise, your IDE will likely allow you to specify the *working directory* somewhere in the project's properties.  In Visual Studio, you can modify the working directory by right-clicking on your project and selecting `Properties > Debugging > Working Directory`.  By default this is set to the project directory, so as long as the `data` folder is in the project directory itself, it can be found using relative pathnames.
 
 #### Thread Safety
 
@@ -455,25 +455,27 @@ If the program doesn't crash right away, these concurrent modification errors ca
 
 You need to protect access to your map if it is shared between threads by applying *mutual exclusion*.  For this, you have access to the standard library implementation `<mutex>`, which provides `std::mutex`, `std::lock_guard`, and `std::unique_lock`.
 
-As you are protecting access to your shared map, think about critical section *localization*.  What is the smallest section of code that needs to be protected?  The narrower you can make this region, the more the multiple threads can execute in parallel.  If you lock your mutex at the beginning of a method and unlock it at the end, then calls to that method will behave as if called sequentially.  You want to try to maximize concurrency.
+As you are protecting access to your shared map, think about critical section *localization*.  What is the smallest section of code that needs to be protected?  The narrower you can make this region, the more benefit you will gain by having multiple threads executing in parallel.  If you lock your mutex at the beginning of a method and unlock it at the end, then calls to your method will behave as if it was called sequentially.
 
 ### Questions
 
 - How can you test your program without needing to manually go through all the dialogue in Shakespeare's plays?
 - Has writing this code multithreaded helped in any way?
-- As written, if a character in one play has the same name as a character in another -- e.g. *King* -- how can you treat them as separate in the single map?
+- As written, if a character in one play has the same name as a character in another -- e.g. *King* -- it will threat them as the same and artificially increase the word count.  How can you modify your code to treat them as separate, but still store all characters in the single map (you do not need to implement this... just think about how you would do it)?
 
 ## Part 2 -- System Logger
 
-We are going to write a small system logger example.  Most operating systems have a single system log file containing messages from many processes.  These processes need to coordinate somehow so that no process interrupts another as they are writing to the system log.  Otherwise, the log messages could be garbled.  In practice, this works by calling a kernel-specific log function that handles the synchronization internally.  However, we will take a different approach, where the processes themselves coordinate using *mutual exclusion*.  We will write two executables.  One which acts as a logging client, writing to the system log, and one parent program which will launch several logging clients.
+We are now going to switch from multithreaded applications to multi-process ones.  In this exercise we will write a simple system logger.  Most operating systems have a single system log file containing messages from many processes.  These processes need to coordinate somehow so that no process interrupts another as they are writing to the shared system log.  Otherwise, the log messages could become garbled.  In practice, this works by calling a kernel-specific log function that handles the synchronization internally.  However, we will take a different approach: the processes themselves will coordinate using *mutual exclusion*.  We will write two executables: one which acts as a logging client, writing to the system log; and one parent program which will launch several logging clients.
 
 Mutual exclusion between processes requires us to go outside standard C\+\+.  We have provided the [CPEN 333 Library](https://github.com/cpen333/library.git) to help with this.
 
 ### Accessing the Library
 
-Within the course library exists an `include` folder.  The library is what's known as a *header only library*, which means all the code is contained within headers.  All you need to do is ensure that the `include` folder is searched when looking for the appropriate header files.
+Within the course library exists an `include` folder.  The library is what's known as a *header only library*, which means all the code is contained within headers.  You need to ensure that the `include` folder is searched when looking for the appropriate header files.
 
 In Visual Studio, you can add a directory to the list of searched folders by adding it to the `Include Directories` variable.  This can be accomplished through the menus by going to `Project > Properties > Configuration Properties > VC++ Directories` and adding the full path name to `Include Directories` in the right-hand pane.
+
+In Xcode, click on the main project to pull up its settings, modify `Build Settings > Search Paths > Header Search Paths` and add the full directory to the library's `include` folder.
 
 You should now be able to include the inter-process mutex header into your source files using
 ```cpp
@@ -482,23 +484,35 @@ You should now be able to include the inter-process mutex header into your sourc
 
 ### Multiple Processes
 
-We are going to create a small system containing two executables: a logging client, which we will call `system_logger_child`, and a parent process that will launch a set of clients called `system_logger_parent`.
+We are going to create a small system containing two executables: a logging client, which we will call `system_logger_child`; and a driver that will launch a set of clients called `system_logger_parent`.
+
+For these programs to be able to find each other, we may need to modify a few settings in our IDEs: the *binary output directory*, which is where the executables will be located; and the *working directory*, which is where our programs will look for other files and executables.
 
 #### Multiple Dependent Projects in Visual Studio
 
 In Visual Studio, to create two output executables we need to create two projects within our solution.  You can add a new project to your existing solution by right-clicking on the solution and selecting `Add > New Project`.  Each project should contain only the source files that will be compiled for that particular executable.
 
-By default, the executables created in Visual Studio will match the project name.  We can change the output executable name through the menus: `Project > Properties > Configuration Properties > General` and changing the `Target Name` property in the right-hand pane.  We will want our client to be called `system_logger_child`, and our driver to be called `system_logger_parent`.
+By default, the executables created in Visual Studio will match the project name.  We can change the output name through the menus: `Project > Properties > Configuration Properties > General`, and modify the `Target Name` property in the right-hand pane.  We want our client to be called `system_logger_child`, and our driver to be called `system_logger_parent`.
 
 The parent executable will try to run the child, which means we have a project dependency.  If we build the parent executable, we will also want to ensure our child is built.  You can add a project dependency in Visual Studio by selecting the parent project and going to `Project > Project Dependencies...`.  Select the child project from the list.
 
 Since the parent will try to launch the child process, it also needs to know how to find it.  The easiest way to do this is to change the output directories of our projects (where the executable files go), as well as our *working directory*, which is where the executables are run from.  Let's put them all in the Solution directory in a folder named `bin`.  For each project,
-- Change the binary output directory by going to `Project > Properties > Configuration Properties > General` and changing the `Output Directory` to `$(SolutionDir)\bin`.
-- Similarly, for each project change the working directory by going to `Project > Properties > Configuration Properties > Debugging` and changing the `Working Directory` to `$(SolutionDir)\bin`.
+- Change the binary output directory by going to `Project > Properties > Configuration Properties > General` and changing the `Output Directory` to `$(SolutionDir)bin\`.
+- Similarly, for each project change the working directory by going to `Project > Properties > Configuration Properties > Debugging` and changing the `Working Directory` to `$(SolutionDir)bin\`.
 
-The two executables should then be built into the same folder, and will be able to see each other by calling the relative executable `"./system_logger_child"` or `"./system_logger_parent"` -- note the `"./"` at the beginning which tells it to search the current directory.
+The two executables should then be built into the same folder, and will be able to see each other using the relative executable path `"./system_logger_child"` or `"./system_logger_parent"` -- note the `"./"` at the beginning which tells our programs to search the current working directory.
 
 By default, Visual Studio will select a single project to run when you hit the debug button.  You can change this behaviour so that it will run the current project.  Right-click on the Solution in the Solution Explorer and select `Set Startup Projects...`.  In the right-hand pane select `Current Selection`.  Alternatively, you can right-click any project and select `Debug > Start new instance` to run a particular project.
+
+#### Multiple Dependent Projects in Xcode
+
+In Xcode, to build two executables within a single project we need to create multiple *targets*.  By default, a single target is generated.  To add another one, select the project in the *Project Navigator*, and at the bottom left of the centre pane click on the `+` symbol to add a new target.  You should create a "Command Line Tool" target that uses C\+\+.  This will create a new folder in the Project Navigator to which you can add all the files that your new target depends on.
+
+By default, the executables created in Xcode will match the target name.  We can change the output name through the target settings: `Build Settings > Packaging`, and modify the `Product Name` property.  We want our client to be called `system_logger_child`, and our driver to be called `system_logger_parent`.
+
+The parent executable will try to run the child, which means we have a project dependency.  If we build the parent executable, we will also want to ensure our child is built.  You can add a project dependency in Xcode by selecting the parent target and going to `Build Phases > Target Dependencies`.  Click the `+` icon and select the child project from the list.
+
+Since the parent will try to launch the child process, it also needs to know how to find it.  In Xcode, all targets are built in the same path by default, and this path is set as the working directory.  Thus, our two programs will be able to find each other using the relative path names `"./system_logger_child"` and `"./system_logger_parent"` -- note the `"./"` at the beginning which tells our programs to search the current working directory.
 
 #### Multiple Dependent Projects on Other IDEs
 
@@ -506,9 +520,9 @@ For other IDEs and operating systems, I leave it up to you to determine how to c
 
 ### Writing the System Logger
 
-Much of the code is provide for you.  The *child* process accepts three arguments from the command-line in the `argv` vector: a name, a logfile path, and a number of messages to print (**Note:** the zeroeth entry in `argv` is always the executable name).  The main method parses the inputs and runs the logger client function `run_logger`.  The logger than prints a number of messages, both the the log file and to standard output, at random time intervals.
+Much of the code for the system logger is provided for you.  The *child* process accepts three arguments from the command-line in the `argv` array: a name, a log-file path, and a number of messages to print (**Note:** the zeroeth entry in `argv` is always the executable name, so `argc` actually has a value of 4).  The main method parses the inputs and runs the logger client function `run_logger`.  The logger then prints a number of messages, both to the log file and to standard output, at random time intervals.
 
-Your job is to make the logging function run so that it is synchronized with other processes using mutual exclusion.  You will need to use the `cpen333::process::mutex` for this, and perhaps a lock.
+Your job is to make the `run_logger` function safe for concurrent use with other processes using mutual exclusion.  You will need to use the `cpen333::process::mutex` for this, and perhaps a lock such as `std::lock_guard` or `std::unique_lock`.  You may find the library examples on mutexes helpful.
 
 `system_logger_child.cpp`:
 ```cpp
@@ -561,7 +575,7 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-The parent process spins off a collection of subprocesses.  It should then wait for all of these subprocesses to finish before disposing of the interp-process mutex.
+The parent process launches a collection of subprocesses.  It should then wait for all of the subprocesses to finish before disposing (unlinking) the inter-process mutex.
 
 `system_logger_parent.cpp`:
 ```cpp
@@ -606,14 +620,13 @@ int main() {
   return 0;
 }
 ```
-
 Your job is to write the section that creates the subprocesses, calling `system_logger_child` and passing it the correct arguments.
 
-**Warning:** Mac and Linux users beware!  The inter-process mutex has kernel persistence, meaning that if you accidentally leave a mutex locked when your process ends, that mutex will remain locked the next time you try to run your program.  You will need to call
+**Warning:** Mac and Linux users beware!  The inter-process mutex has *kernel persistence*, meaning that if you accidentally leave a mutex locked when your process ends, that mutex will remain locked the next time you try to run your program.  You will need to call
 ```cpp
 cpen333::process::mutex::unlink("system_logger");
 ```
-to *unlink* it before your code will run again.
+to *unlink* it before your code will be able to run again.
 
 ### Questions
 
