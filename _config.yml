@@ -3,6 +3,15 @@ title:        "CPEN 333: System Software Engineering"
 tagline:      "Lectures and course material for CPEN 333: System Sofware Engineering, Department of Electrical and Computer Engineering, University of British Columbia."
 baseurl:      ""
 
+# exclude files
+exclude:
+         - vendor
+         - Gemfile
+         - Gemfile.lock
+         - node_modules
+         - gulpfile.js
+         - package.json
+
 # About/contact
 author:
   name:       C. Antonio Sánchez
