@@ -433,6 +433,9 @@ int main() {
     std::cout << entry.first << ", " << entry.second << std::endl;
   }
 
+  std::cout << std::endl << "Press ENTER to continue..." << std::endl;
+  std::cin.get();
+  return 0;
 }
 ```
 The code leaves several sections blank.  It is your job to fill in these sections.  In particular, you will need to
@@ -600,7 +603,7 @@ int main() {
     //=================================================
     //  RUN CHILD PROCESSES (system_logger_child)
     //      Process arguments:
-    //          - a name for identification in the lag
+    //          - a name for identification in the log
     //          - a log filename to append to
     //          - a number of messages to append
     //=================================================
