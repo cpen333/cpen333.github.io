@@ -1,26 +1,7 @@
-# Setup
-title:        "CPEN 333: System Software Engineering"
-tagline:      "Lectures and course material for CPEN 333: System Sofware Engineering, Department of Electrical and Computer Engineering, University of British Columbia."
-baseurl:      ""
-
-# About/contact
-author:
-  name:       C. Antonio Sánchez
-  url:        https://www.github.com/cantonios       
-
-# Others
-markdown: kramdown
-timezone: America/Vancouver
-# Mixed block html and markdown
-# kramdown:
-#  parse_block_html: true
-
-# Custom
-collections:
-  lectures:
-    output: true
-    permalink: /:collection/:path/
-
-  labs:
-    output: true
-    permalink: /:collection/:path/
+pages:
+  script:
+  - bundle install
+  - bundle exec jekyll build -d public
+  artifacts:
+    paths:
+    - public
