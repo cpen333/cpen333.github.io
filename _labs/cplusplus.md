@@ -74,42 +74,42 @@ int main() {
   std::cout << "Enter the mass of the car (kg): ";
   double mass;
   std::cin >> mass;
-  
+
   // read in engine force
   std::cout << "Enter the net force of the engine (N): ";
   double engine_force;
   std::cin >> engine_force;
-  
+
   // read in drag area coefficient
   std::cout << "Enter the car's drag area (m^2): ";
   double drag_area;
   std::cin >> drag_area;
-  
+
   // read in time step
   std::cout << "Enter the simulation time step (s): ";
   double dt;
   std::cin >> dt;
-  
+
   // read in total number of simulation steps
   std::cout << "Enter the number of time steps (int): ";
   int N;
   std::cin >> N;
-  
+
   // initialize the car's state
   double x = 0;  // initial position
   double v = 0;  // initial velocity
   double a = 0;  // initial acceleration
   double t = 0;  // initial time
-  
+
   // run the simulation
   for (int i=0; i<N; ++i) {
-    
+
     // TODO: COMPUTE UPDATED STATE HERE
-    
+
     t += dt;  // increment time
-    
+
     // print the time and current state
-    std::cout << "t: " << t << ", a: " << a 
+    std::cout << "t: " << t << ", a: " << a
       << ", v: " << v << ", x: " << x << std::endl;
   }
 
@@ -154,7 +154,7 @@ class Car {
  public:
   // constructor
   Car(std::string model, double mass, double engine_force, double drag_area);
-  
+
   std::string getModel();    // gets the model name
   double getMass();          // mass of the car
   void accelerate(bool on);  // turn the accelerator on/off
@@ -181,17 +181,17 @@ We will start by creating the `State` class that will hold the car's position, v
    class State {
       ...   
    };
-   
+
    // prints out a State class information
    inline std::ostream& operator<<(std::ostream& os, State& state) {  
-      os << "t: " << state.time << ", x: " << state.position 
+      os << "t: " << state.time << ", x: " << state.position
          << ", v: " << state.velocity << ", a: " << state.acceleration;
       return os;
    }  
-  
+
    ```
    This allows us to use `std::cout << state << std::endl` to print out all our state's information.  We were able to access the state's member variables directly because they are declared as **public**.  If they aren't, you will have to use *accessor methods* to get the desired information (or declare the method as a `friend`, but that is beyond the scope of this course).  Since this function is defined in the header (as opposed to only being *declared*), we need to mark it as `inline`.  This only applies to stand-alone functions, not classes or member functions.
-   
+
 #### Creating the `Car` class
 
 Next we will create the `Car` class, which will do most of the work for driving.
@@ -215,25 +215,25 @@ The simulator will be our main program that will drive our cars.
    #include <string>
    #include "State.h"
    #include "Car.h"
-   
+
    int main() {
-   
+
      Car car1("Mazda 3", 1600, 790, 0.61);
      Car car2("Toyota Prius", 1450, 740, 0.58);
-   
+
      // drive for 60 seconds
      double dt = 0.01;
-     
+
      // GO!!!!
      car1.accelerate(true);
      car2.accelerate(true);
      for (double t = 0; t <= 60; t += dt) {
        car1.drive(dt);
        car2.drive(dt);
-       
+
        // TODO: print out who's in the lead
      }
-   
+
      return 0;
    }
    ```
@@ -268,15 +268,25 @@ Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) c
    };
    ```
 <img src="{{site.url}}/assets/labs/cplusplus/car_hierarchy.png" alt="Car hierarchy" width="80%"/><br/><br/>
-4. Create a new program in a file named `highway.cpp`.  In the main method, create a mixed fleet of 100 cars.  Start them all and control their speed so that they remain driving at around 100km/h (27.8m/s).  Let them drive for a few minutes (simulation time) and print out their positions.  If you can't control Herbie, that's fine, he tends to veer off the road anyways.<br/><br/>
-**Notes:**
-  - ~~You can store all the cars in an array of `Car`s, or if you're adventurous, you can use the STL [vector](http://en.cppreference.com/w/cpp/container/vector) container defined in the `<vector>` header.  You can create a vector and add to it with~~
-  **Update:** storing all cars in a vector or array of `Car` leads to "Object Slicing", which will break polymorphism and prevent Herbie from using his overridden version.  This is more than you need to know.  Skip down to Q3.
+4. Create a new program in a file named `highway.cpp`.  In the main method, we will create a fleet of 100 cars (25 of each car type).  
+
+   **Note:** since we are not dealing pointers yet (we will see this in the next section), we must create four different arrays or vectors of the explicit types `Prius`, `Mazda3`, `Tesla3`, and `Herbie` to store our fleet.
    ```cpp
-   std::vector<Car> cars;
-   cars.push_back(Prius());
-   cars.push_back(Tesla3());
-   cars.push_back(Herbie());
+   // create fleet
+   std::vector<Prius> priuses(25);
+   std::vector<Mazda3> mazdas(25);
+   std::vector<Tesla3> teslas(25);
+   std::vector<Herbie> herbies(25);
+   ```  
+5. Create a combined array or vector of car *references* for storing the fleet.
+   ```cpp
+   std::vector<Car&> cars;
+   for (int i=0; i<25; ++i) {
+     cars.push_back(priuses[i]);
+     cars.push_back(mazdas[i]);
+     cars.push_back(teslas[i]);
+     cars.push_back(herbies[i]);
+   }
    ```
    Vectors support for-each loops, so you can easily loop through all cars with
    ```cpp
@@ -285,6 +295,10 @@ Let's say we wanted to create a fleet of one hundred [Evo](https://www.evo.ca) c
      car.drive(dt);
    }
    ```
+6. Start all the cars in the combined vector or array and control their speed so that they remain driving at around 100km/h (27.8m/s).  Let them drive for a few minutes (simulation time) and print out their positions.  If you can't control Herbie, that's fine, he tends to veer off the road anyways.<br/><br/>
+7. Modify `Car.h` to *remove* the `virtual` declaration on `drive(...)`.  What does `Herbie` do now?  Is it what you expect?  *Should* it be what you expect?
+
+**Object Slicing:** We couldn't put all our cars directly into the single `cars` vector because of something called *object slicing*.  An array or vector of `Car` is only designed to hold enough memory for instances of the base-class `Car`.  Any class that inherits from this, such as a `Prius`, will have all the memory of a `Car`, plus additional memory for all the extra stuff that a `Prius` can do.  Forcing a Prius to fit into a `Car`-sized block of memory will *slice* off all that extra stuff, hence the term *object slicing*.  This will break polymorphism.  Polymorphism only works with references and pointers, where the object being referred to still has the full `Prius` memory block.
 
 ### Q3: Pointers and Memory Management
 
@@ -294,15 +308,15 @@ Every time you pass around objects by value a *copy* is made.  This may be fine 
 
 - Modify your code so that rather than returning a copy of the car's state, `getState(...)` returns a *pointer* to the internal state.  You may need change other code to access position/velocity using the `->` operator.
 
-Whenever you create an instance of a class like you would any other primitive variable type, it allocates and stores the object on the [stack](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  For small objects, this is usually fine.  If, however, your objects are quite large, or you are creating a lot of them, it's much more efficient to create them on the [heap](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  The heap also allows you to create dynamically sized memory blocks.
+Whenever you create an instance of a class like you would any other primitive variable type, it allocates and stores the object on the [stack](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  For small objects, this is usually fine.  If, however, your objects are quite large, or you are creating a lot of them, it's much more efficient to create them on the [heap](http://gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html).  The heap also allows you to create dynamically sized memory blocks, whereas objects on the stack must have a size known at compile-time.
 
-1. Modify the `highway.cpp` program to instead create cars on the heap.  There are several ways you can accomplish this:
+- Modify the `highway.cpp` program to create cars on the heap and store the pointers directly into a single array or vector (i.e. there is no more need for having four separate storage containers).  There are several ways you can accomplish this:
    ```cpp
    Car* cars1[100];                  // a fixed-size array of 100 car pointers
    Car** cars2 = new Car*[100];      // a dynamic array of 100 car pointers
    std::vector<Car*> cars3(100);     // a vector filled with 100 car pointers
    ```
-   Note that if you create a sized vector like the third option above, do not add items using `vector.push_back(...)` since the vector already contains 100 items.  You can assign the pointers directly just as if it were an array:
+   If you create a sized vector like the third option above, do not add items using `vector.push_back(...)` since the vector already contains 100 items.  You can assign the pointers directly just as if it were an array:
    ```cpp
    for (int i=0; i<100; ++i) {
      cars1[i] = new Prius();   // fixed-size array
@@ -319,8 +333,6 @@ Whenever you create an instance of a class like you would any other primitive va
    }
    delete[] cars2;  // free dynamic array
    ```
-   
-2. Modify `Car.h` to *remove* the `virtual` declaration on `drive(...)`.  What does `Herbie` do now?  Is it what you expect?  *Should* it be what you expect?
 
 ## Submitting Your Lab
 
