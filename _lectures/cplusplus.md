@@ -236,7 +236,7 @@ int main() {
   return 0;
 }
 ```
-Notice that the calls to `r1.getArea()` and `r2.getArea()` do not print the same results.  This is because each of `r1` and `r2` have theirh *own* variables `width` and `height`.  This is an **extremely important**  concept.  The functions `setValues(...)` and `getArea()` are manipulating the variables of the *object* that *invoked* them.
+Notice that the calls to `r1.getArea()` and `r2.getArea()` do not print the same results.  This is because each of `r1` and `r2` have their *own* variables `width` and `height`.  This is an **extremely important**  concept.  The functions `setValues(...)` and `getArea()` are manipulating the variables of the *object* that *invoked* them.
 
 In the example above, we embedded the actual code for the functions `setValues(...)` and `getArea()` *inside* the class definition itself.  This is acceptable here because that code is small and simple.  However, when the functions become large and if there are many of them, it can become unwieldy to do it this way.  In general, it is good practice to separate out the declaration and implementation like this:
 ```cpp
