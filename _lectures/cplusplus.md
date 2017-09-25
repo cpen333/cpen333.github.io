@@ -321,7 +321,7 @@ int h = r1.height;  // compile ERROR
 ```
 In an example as simple as this, it's hard to see how restricting access to the member variables may be useful.  But in bigger projects, it is important from a maintenance point of view: you are limiting access so that changes to code have limited and isolated effects.  This would allow the programmer to change how the class works internally without affecting any code that uses it.  This is the main advantage of *encapsulation*.
 
-Ideally, objects present their external *interfaces* to the outside world (i.e. their *public* member functions) that will allow others to *get* and *set* the member variables in a way that is appropriate.  For example, you may wish to restrict rectangle widths and heights to be positive numbers.  We also don't want users of an object to write code that is dependent on knowing the internal details of an object.  For example, just like driving a car, you use the interfaces provided by the car designer (e.g. brakes, accelerator, steering wheel, etc.) and manipulate the car via those interfaces.  You don't need to know how the car actually *works* to drive; that is hidden and only of concer to the designer, not the user.
+Ideally, objects present their external *interfaces* to the outside world (i.e. their *public* member functions) that will allow others to *get* and *set* the member variables in a way that is appropriate.  For example, you may wish to restrict rectangle widths and heights to be positive numbers.  We also don't want users of an object to write code that is dependent on knowing the internal details of an object.  For example, just like driving a car, you use the interfaces provided by the car designer (e.g. brakes, accelerator, steering wheel, etc.) and manipulate the car via those interfaces.  You don't need to know how the car actually *works* to drive; that is hidden and only of concern to the designer, not the user.
 
 Furthermore, if all cars provide the same interfaces (as they generally do), then one car should be interchangeable with another from the user's perspective.  The car designer is free to change things like the type of engine, without affecting us users who only interact with the car through the interfaces, not the implementation.
 
@@ -697,7 +697,7 @@ class Rectangle : public Polygon {
 
 class Triangle : public Polygon {
  ...
-}
+};
 ```
 For this course, we'll mostly stick with `public` inheritance (though if you look through the course library, you will see others).  This simply means that any method or variable that was public in `Polygon` will remain public in both `Rectangle` and `Triangle`.  The following is a definition for the base class:
 ```cpp
