@@ -1,7 +1,7 @@
 ---
 layout: lab
 title:  Lab 3 - Testing and Mutexes
-date:   2017-09-28 17:50:00
+date:   2017-09-21 12:00:00
 authors: [C. Antonio Sánchez]
 categories: [labs, threads, multithread, shakespeare, testing]
 
@@ -607,7 +607,9 @@ int main() {
     //          - a log filename to append to
     //          - a number of messages to append
     //=================================================
-
+    cmd.push_back("./system_logger_child");  // command path
+    // other arguments...
+    // cmd.push_back(...);
   }
 
   // wait for processes to finish

@@ -1,7 +1,7 @@
 ---
 layout: lab
 title:  Lab 2 - Multi-Threading
-date:   2017-09-14 17:50:00
+date:   2017-09-14 12:00:00
 authors: [C. Antonio Sánchez]
 categories: [labs, threads, multithread, quicksort, monte carlo, integration]
 usemath: true
@@ -61,10 +61,10 @@ int main() {
     v1[i] = rand();
   }
   std::vector<int> v2 = v1;  // copy all contents
-  
+
   // sort v1 using sequential algorithm
   quicksort(v1, 0, v1.size()-1);
-  
+
   // sort v2 using parallel algorithm
   parallel_quicksort(v2, 0, v2.size()-1);
 
@@ -141,7 +141,7 @@ int main() {
   for (int i=0; i<100; ++i) {
     std::cout << dist(rnd) << std::endl;
   }
-  
+
   return 0;
 }
 ```
@@ -176,7 +176,7 @@ int main() {
 
   double pi = estimate_pi(1000);
   std::cout << "My estimate of PI is: " << pi << std::endl;
-  
+
   return 0;
 }
 ```
@@ -198,7 +198,7 @@ void pi_sampler(std::vector<bool>& hits, int idx) {
   static std::uniform_real_distribution<double> dist(-1.0, 1.0);
 
   // YOUR CODE HERE
-  
+
 }
 
 // naively uses multithreading to try to speed up computations
@@ -253,7 +253,7 @@ double estimate_pi_multithread(int nsamples) {
 
   // number of available cores
   int nthreads = std::thread::hardware_concurrency();
-  
+
   // hit counts
   std::vector<int> hits(nthreads, 0);
 
@@ -320,9 +320,9 @@ To apply Monte-Carlo integration within the sphere, we have three options:
 1. generate random samples directly within the sphere using spherical coordinates
 2. generate random samples within a bounding cube, and if they happen to fall outside the sphere, reject them and try again
 3. extend our density function to a bounding cube such that
-   
+
    $$ \rho_{\mathrm{cube}} = \begin{cases}\rho & \text{if }\mathbf{x}\in V\\ 0 & \text{otherwise}\end{cases}$$
-   
+
    We could then integrate the new density, $$\rho_{\mathrm{cube}}$$ over the bounding cube, which is a bit easier.
 
 Write a program to compute the centre of mass of a unit sphere with the following densities:

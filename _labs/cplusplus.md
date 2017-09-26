@@ -1,7 +1,7 @@
 ---
 layout: lab
 title:  Lab 1 - Introduction to C++
-date:   2017-07-14 17:50:00
+date:   2017-09-07 12:00:00
 authors: [C. Antonio Sánchez]
 categories: [labs, c++]
 usemath: true
