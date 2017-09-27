@@ -4,6 +4,7 @@ title:  Amazoom Automated Warehouse
 date:   2017-07-12 17:50:00
 authors: [C. Antonio Sánchez]
 categories: [project, automated warehouse]
+published: false
 
 ---
 
