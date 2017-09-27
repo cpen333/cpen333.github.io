@@ -17,4 +17,11 @@ title: {{ site.name }}
       <li><a href="{{ site.baseurl }}{{ lab.url }}">{{ lab.title }}</a></li>
     {% endfor %}
   </ul>
+
+  <h1>Project</h1>
+  <ul class="projects">
+    {% for project in site.projects %}
+      <li><a href="{{ site.baseurl }}{{ project.url }}">{{ project.title }}</a></li>
+    {% endfor %}
+  </ul>
 </div>

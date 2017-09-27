@@ -1,6 +1,6 @@
 # Setup
 title:        "CPEN 333: System Software Engineering"
-tagline:      "Lectures and course material for CPEN 333: System Sofware Engineering, Department of Electrical and Computer Engineering, University of British Columbia."
+tagline:      "Course material for CPEN 333: System Sofware Engineering, Department of Electrical and Computer Engineering, University of British Columbia."
 baseurl:      ""
 
 # exclude files
@@ -10,7 +10,7 @@ exclude:
 # About/contact
 author:
   name:       C. Antonio Sánchez
-  url:        https://www.github.com/cantonios       
+  url:        https://www.github.com/cantonios
 
 # Others
 markdown: kramdown
@@ -26,5 +26,9 @@ collections:
     permalink: /:collection/:path/
 
   labs:
+    output: true
+    permalink: /:collection/:path/
+
+  projects:
     output: true
     permalink: /:collection/:path/
