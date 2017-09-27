@@ -4,24 +4,30 @@ title: {{ site.name }}
 ---
 
 <div id="home">
-  <h1>Lectures</h1>
-  <ul class="lectures">
-    {% for lecture in site.lectures %}
-      <li><a href="{{ site.baseurl }}{{ lecture.url }}">{{ lecture.title }}</a></li>
-    {% endfor %}
-  </ul>
+  {% if site.lectures != empty %}
+    <h1>Lectures</h1>
+    <ul class="lectures">
+      {% for lecture in site.lectures %}
+        <li><a href="{{ site.baseurl }}{{ lecture.url }}">{{ lecture.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-  <h1>Labs</h1>
-  <ul class="labs">
-    {% for lab in site.labs %}
-      <li><a href="{{ site.baseurl }}{{ lab.url }}">{{ lab.title }}</a></li>
-    {% endfor %}
-  </ul>
+  {% if site.labs != empty %}
+    <h1>Labs</h1>
+    <ul class="labs">
+      {% for lab in site.labs %}
+        <li><a href="{{ site.baseurl }}{{ lab.url }}">{{ lab.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-  <h1>Project</h1>
-  <ul class="projects">
-    {% for project in site.projects %}
-      <li><a href="{{ site.baseurl }}{{ project.url }}">{{ project.title }}</a></li>
-    {% endfor %}
-  </ul>
+  {% if site.projects != empty %}
+    <h1>Project</h1>
+    <ul class="projects">
+      {% for project in site.projects %}
+        <li><a href="{{ site.baseurl }}{{ project.url }}">{{ project.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>
