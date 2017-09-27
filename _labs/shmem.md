@@ -82,7 +82,8 @@ We can then use `memory` as if it were a pointer to the shared `SharedData` stru
 int rows = memory->minfo.rows;
 ```
 
-### The Main Maze Process
+### Processes
+#### The Main Maze Process
 
 The purpose of the main maze process, `maze_runner_main`, is to load a maze from a file, initialize the shared memory object, and generate random starting positions for all maze runners who may join.
 
@@ -130,7 +131,7 @@ int main(int argc, char* argv[]) {
 ```
 When the user hits the enter key, your code should use the shared memory to tell all other processes to quit.
 
-### The User Interface
+#### The User Interface
 
 The UI for this program, `maze_runner_ui`, is completely passive.  It simply displays the maze and the locations of any `runners` in it.  It uses the [`console`](https://cpen333.github.io/library/docs/html/classcpen333_1_1console.html) class for manipulating printed locations on the console (or terminal).  Note that this class uses special ANSI codes for the manipulation, so you need it a full-fledged console or terminal application that supports these for the display to work properly.  Windows `cmd.exe` -- launched by Visual Studio by default when running your program -- will do the job.  In Xcode, you will need to edit your [runtime *scheme*](https://stackoverflow.com/a/40361384/4266470) to use the Terminal app.
 
@@ -276,7 +277,7 @@ You have two tasks to complete:
 - finish the constructor, searching for and storing the location of the maze exit
 - add any mutual exclusion required to protect critical sections of code
 
-### Maze Runner
+#### Maze Runner
 
 The `maze_runner` process represents one of our maze participants.  Participants can join at any time once the `maze_runner_main` process has started.  
 
@@ -383,7 +384,7 @@ In the `maze_runner_main` process, after the shared memory block has been initia
 
 In both `maze_runner_ui` and `maze_runner`, before we try to use any of the shared memory, first check that it has been initialized.  If it hasn't, then print an error message and quit immediately.
 
-### Questions:
+### Questions
 
 1. In the `MazeUI` class, what is the smallest section of code that needs to be protected by mutual exclusion?  Think about what might be considered *static* memory (i.e. remains constant) and what is *dynamic* memory (i.e. changing).
 2. In the `MazeRunner` constructor, why is only the access to `memory_->info.nrunners` protected?  Why can we get away with copying the runner's current location without needing to worry about mutual exclusion?
