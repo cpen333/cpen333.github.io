@@ -393,4 +393,74 @@ In both `maze_runner_ui` and `maze_runner`, before we try to use any of the shar
 
 ## Part 2 -- Malware
 
-... to come ...
+Malware, or malicious software, can be difficult to close down completely.  If you manage to kill one process manually, you'll often find that it just starts back up again on its own.  It can feel like you're playing a game of whack-a-mole.  There are a variety of techniques that can be used to accomplish this.  We're going to explore one: have two processes running, and if either detects that the other one has been closed, it starts another instance of the process back up again.
+
+How can we detect if another process is still running?  At first you might think we could use the RAII pattern: as a process closes down, notify the other process so it knows to start it back up immediately.  However, unfortunately, when a process is forcibly closed, no destructors are called (i.e. there is no *stack-unwinding*).  Instead, the entire memory block is reclaimed by the operating system.
+
+What other trick can we use?  Did you have, or know someone who had, a protective parent?  
+> *I want you to check in every hour so I know you're okay.*
+
+We can use the same idea in software.  Each process is assigned a *check-in* variable, and needs to update it periodically to show that it is still alive.  The other process can monitor this check-in variable, and if it hasn't been updated in a while, it will know something is wrong.
+
+The following is a skeleton of the code for our malware application:
+```cpp
+#include <cpen333/process/subprocess.h>
+#include <cpen333/process/shared_memory.h>
+#include <chrono>
+#include <thread>
+#include <string>
+#include <iostream>
+
+// Usage:
+//    malware <name> <index>
+// name is any name
+// index is 0 or 1
+// defaults to name:malware, index:0
+int main(int argc, char* argv[]) {
+
+  // extract name and index
+  int index = 0;
+  std::string name = "malware";
+  if (argc > 1) {
+    name = argv[1];
+  }
+  if (argc > 2) {
+    index = std::atoi(argv[2]);
+  }
+
+  std::cout << name << " " << std::to_string(index)  << " started" << std::endl;
+
+  //========================================================
+  // TODO: CREATE AND INITIALIZE SHARED MEMORY
+  //========================================================
+
+  int oindex = (index+1)%2;  // index of other malware process
+
+  while(true) {
+    std::cout << name << " " << std::to_string(index)  << " running" << std::endl;
+
+    //=======================================================
+    // TODO: CHECK IF OTHER PROCESS MISSED CHECK-IN(S)
+    //       - LAUNCH IF NOT RESPONDING
+    //=======================================================
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+  }
+
+  return 0;
+}
+```
+The program extracts a name and index number (0 or 1) from the command-line arguments.  It then continuously loops, printing its name and index, then waits for a bit.
+
+**Your task:** as long as one process is still running, make sure the other process doesn't remain closed for more than 10 seconds.
+
+To do this you can implement a version of the check-in system using shared memory.  It is up to you what to store.  You could use counters that need to be incremented, or explicitly store times of last check-in.  You may or may not need a way to initialize the memory as well.
+
+**Notes:**
+- Be careful not to continuously launch processes faster than you can close them manually!!!  Unlike threads, which would just throw a *system error* if you create too many, creating a large number of process will simply start bogging down your computer until it becomes unusable (at which point you've actually created malware).
+- When launching a new process, you'll want to create it in *detached* mode.  Otherwise when the parent process is closed, the child will also be closed automatically.
+- Sometimes you might just *barely* miss a check-in due to time slicing and race conditions.  You'll want to be sure that the other process is still down after a reasonable amount of time, but still not let it remain closed for more than 10 seconds.  You may need to change any sleep timings.
+
+### Questions
+1. How did you implement your shared memory?
+2. Did you protect any accesses to that shared memory using mutual exclusion?  Did you *need* to? (the answer depends on how exactly you are checking for check-ins)
