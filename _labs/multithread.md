@@ -189,7 +189,7 @@ One way to try to speed things up is to generate and check each random sample in
 
 Create a naive concurrent version of `estimate_pi` based on the following:
 ```cpp
-// generates a random sample and sets the value of `inside`
+// generates a random sample and sets hits[idx]
 // to true if within the unit circle
 void pi_sampler(std::vector<bool>& hits, int idx) {
 
