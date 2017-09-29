@@ -1,14 +1,14 @@
 ---
 layout: project
-title:  Amazoom Automated Warehouse
+title:  Amazoom Automated Warehouse [Draft]
 date:   2017-07-12 17:50:00
 authors: [C. Antonio Sánchez]
 categories: [project, automated warehouse]
-published: false
+published: true
 
 ---
 
-# Amazoom: Automated Warehouse Proposal
+# Amazoom: Automated Warehouse Proposal [Draft]
 {:.no_toc}
 
 For this course project, you will *design* and implement a *real-time simulation* of the system software that runs an automated warehouse.  You are responsible for producing a [design document](https://en.wikipedia.org/wiki/Software_design_description) that describes the system architecture and information flow for your automated warehouse design, as well as a multi-process, multi-threaded simulation of the software to prove to Amazoom that your design is safe, efficient, and will satisfy all their needs.
@@ -79,11 +79,34 @@ Your job, as the new system software engineer, is to design and implement the so
 
 Rather than jumping straight into the design of a full complex system, start with a simpler system and build up as you get things working.  For example, try beginning with only a fixed warehouse layout and a single robot.  Program your robot process to navigate around the warehouse without crossing through shelving units.  Then slowly add the central computer, product database with one or two items, interactions with deliveries, user-interface, remote machine for orders, and so on.
 
+An overview of the system *might* look something like the following:
+
+<img src="{{site.url}}/assets/projects/warehouse_system_diagram.png" width="720"/>
+
+Any signalling, communication, and synchronization mechanisms are completely up to you.
+
 ## Requirements
+
+Your project submission will include a design document and copy of all source code.  You will also need to schedule a demo with the TAs to show off your system's functionality, and to answer any questions about the design and implementation of your work.
+
+### Design Document
+
+The design document should outline everything developers need to know so that someone joining the team can learn all the architectural details and *big-picture* concepts.
+
+At minimum it should include:
+
+- A Use-Case Diagram along with descriptions of use cases and use case scenarios
+- A Class Diagram outlining your code structure
+- An Object Interaction Diagram to outline how the major components communicate
+- Sequence Diagram(s) for any non-trivial interactions
+- Descriptions of any communication protocols developed
+- Function specifications for any useful "public" functions (i.e. public member functions, re-useable headers, etc...)
+
+You should also prepare an *executive summary* for your firm's project manager to bring to Amazoom.  It should be short enough so nobody will get bored, but informative enough that someone reading it will have a general understanding of the overall system design, as well as why your design stands out over the competition.
 
 ### Individual Submission
 
-If submitting the project as an individual, you are required to design and implement the system as described above.  For full marks, your warehouse automation must support
+If submitting the project as an individual, you are required to design and implement the automated warehouse system as described above.  For full marks, your warehouse automation must support
 
 - a fixed warehouse layout
 - a fixed number of warehouse robots, at least 4
@@ -91,12 +114,41 @@ If submitting the project as an individual, you are required to design and imple
 
 ### Pair Submission
 
-For paired submissions, we extend the warehouse design to include flexible layouts, on-the-fly robot acquisitions, an updateable product database via the user-interface, and multiple incoming order connections.
+For submissions by teams of two, we extend the warehouse design to include:
+- flexible warehouse layouts (e.g. loaded from a file)
+- a dynamic number of robots (i.e. can be added or removed while the system is running)
+- multiple clients connections sending orders to the webserver
+
+<img src="{{site.url}}/assets/projects/client_system_diagram.png" width="420"/>
+
+Clients should be able to connect in an ad-hoc fashion, and each have a UI for placing orders.  If an order cannot be completed due to lack of stock, a simple message back to the client is sufficient.
 
 ### Team of Three Submission
 
-For teams of three, we extend the paired submission requirements to include a network of warehouses.
+For teams of three, we extend the paired submission requirements to include a network of warehouses, and improved client functionality.
 
+<img src="{{site.url}}/assets/projects/network_system_diagram.png" width="420"/>
 
+The individual warehouses should have some variability in terms of the items they hold.  If an order cannot be fulfilled by a single warehouse, it should be split across multiple warehouses if possible.
+
+Clients should have the ability to query how many of an item is in stock, *reserve* an item if in stock (e.g. by adding it to cart), and to place an order.  Once items are reserved, the order should be guaranteed to be deliverable.
 
 ## Grading
+
+The grading scheme for this project is split as follows:
+
+
+| Component       |   Grade             |
+|-----------------|---------------------|
+| Overall System Design   |   20 %      |
+| Requirements Satisfied  |   10 %      |
+| Design Document         |   30 %      |
+| Functional Implementation  |   30 %   |
+| Testing                    |   10 %   |
+| Extra features          |    15 %     |
+
+All students within a group will be awarded the same mark.  The final grade is at the discretion of the TAs and instructor.  
+
+## Deadline
+
+The deadline for the project is the day of the last class, **December 1st**.  You must demo your project *before* the scheduled exam.  This means that if you don't want to do this during exam season, you will have to schedule your demo before the official deadline.
