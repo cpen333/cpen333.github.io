@@ -318,7 +318,7 @@ To manually build a `JSON` object, we first create one using the default constru
   add["msg"] = "add";
   add["song"] = stone;  // add JSON object as value
 
-  std::cout << add_msg.dump() << std::endl;
+  std::cout << add.dump() << std::endl;
 ```
 
 ```

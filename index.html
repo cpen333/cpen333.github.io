@@ -30,4 +30,13 @@ title: {{ site.name }}
       {% endfor %}
     </ul>
   {% endif %}
+
+  {% if site.exams != empty %}
+    <h1>Exams</h1>
+    <ul class="exams">
+      {% for exam in site.exams %}
+        <li><a href="{{ site.baseurl }}{{ exam.url }}">{{ exam.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 </div>
