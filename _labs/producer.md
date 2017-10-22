@@ -7,7 +7,7 @@ categories: [labs, producers, consumers, monitors, semaphores, condition variabl
 
 ---
 
-# Lab 5 -- Producers and Consumers
+# Lab 6 -- Producers and Consumers
 {:.no_toc}
 
 In this lab we will get some practice with synchronization using semaphores and condition variables, as well as introduce the classic Producer-Consumer pattern
