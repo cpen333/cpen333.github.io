@@ -15,6 +15,7 @@ author:
 # Others
 markdown: kramdown
 timezone: America/Vancouver
+future: false
 # Mixed block html and markdown
 # kramdown:
 #  parse_block_html: true

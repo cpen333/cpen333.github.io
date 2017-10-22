@@ -1,6 +1,6 @@
 ---
 layout: project
-title:  Amazoom Automated Warehouse [Draft]
+title:  Amazoom Automated Warehouse
 date:   2017-07-12 17:50:00
 authors: [C. Antonio Sánchez]
 categories: [project, automated warehouse]
@@ -8,7 +8,7 @@ published: true
 
 ---
 
-# Amazoom: Automated Warehouse Proposal [Draft]
+# Amazoom: Automated Warehouse Proposal
 {:.no_toc}
 
 For this course project, you will *design* and implement a *real-time simulation* of the system software that runs an automated warehouse.  You are responsible for producing a [design document](https://en.wikipedia.org/wiki/Software_design_description) that describes the system architecture and information flow for your automated warehouse design, as well as a multi-process, multi-threaded simulation of the software to prove to Amazoom that your design is safe, efficient, and will satisfy all their needs.
