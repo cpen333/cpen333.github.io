@@ -69,7 +69,7 @@ All synchronization required to allow multiple threads to access/modify the queu
 
 The simplest solution to the producer-consumer problem is to have a buffer of size one (i.e. a single element), and two semaphores: one for the producer to control writing to the element when it is "empty", and one for the consumer to control reading from the element when it is "full".  On initialization, the producer semaphore should be given a value of one to indicate that there is one slot available for writing, and the consumer semaphore should be set to zero to indicate that there is not yet anything to read.
 
-When adding to the queue, the producer first waits until the slot is free by waiting on the producer semaphore.  Once notified, it is free to add the next item to the queue, then notifies a waiting consumer that the queue is full.  When removing from the queue, the consumer first waits until the slot is full by waiting on the consumer semaphore.  Once notified, it removes the item, then notifies a waiting producer that that the queue is empty.
+When adding to the queue, the producer first waits until the slot is free by waiting on the producer semaphore.  Once notified, it is free to add the next item to the queue, then notifies a waiting consumer that the queue is full.  When removing from the queue, the consumer first waits until the slot is full by waiting on the consumer semaphore.  Once notified, it removes the item, then notifies a waiting producer that the queue is empty.
 <table>
   <thead style="text-align: center;">
     <tr><th>Add</th><th>Remove</th></tr>
