@@ -69,7 +69,7 @@ All synchronization required to allow multiple threads to access/modify the queu
 
 The simplest solution to the producer-consumer problem is to have a buffer of size one (i.e. a single element), and two semaphores: one for the producer to control writing to the element when it is "empty", and one for the consumer to control reading from the element when it is "full".  On initialization, the producer semaphore should be given a value of one to indicate that there is one slot available for writing, and the consumer semaphore should be set to zero to indicate that there is not yet anything to read.
 
-When adding to the queue, the producer first waits until the slot is free by waiting on the producer semaphore.  Once notified, it is free to add the next item to the queue, then notifies a waiting consumer that the queue is full.  When removing from the queue, the consumer first waits until the slot is full by waiting on the consumer semaphore.  Once notified, it removes the item, then notifies a waiting producer that that the queue is empty.
+When adding to the queue, the producer first waits until the slot is free by waiting on the producer semaphore.  Once notified, it is free to add the next item to the queue, then notifies a waiting consumer that the queue is full.  When removing from the queue, the consumer first waits until the slot is full by waiting on the consumer semaphore.  Once notified, it removes the item, then notifies a waiting producer that the queue is empty.
 <table>
   <thead style="text-align: center;">
     <tr><th>Add</th><th>Remove</th></tr>
@@ -102,7 +102,7 @@ We can extend the single-element solution to instead use a circular buffer.  Thi
 
 In using the circular buffer, we need to keep track of the next position to write to, as well as the next position to read from.  This introduces two index variables: one for the next producer, and one for the next consumer.  
 
-Since there is more than one slot, it may be possible that two producers/consumers attempt to add/remove an item to/from the queue at the same time, which could lead to a race condition in acquiring the next index.  Therefore we need to protect access to the indices using mutual exclusion.  This introduces two mutexes: one for the producer index, and one for the consumer index.  Once we have the appropriate index, the actual copying of data can be done outside of the lock since we know we are the only one accessing this particular slot due to the combination of the semaphore and mutex.  This can be important, since for large data structures the memory copying can be the bottleneck of the add/remove operation.
+Since there is more than one slot, it may be possible that two producers/consumers attempt to add/remove an item to/from the queue at the same time, which could lead to a race condition in acquiring the next index.  Therefore we need to protect access to the indices using mutual exclusion.  This introduces two mutexes: one for the producer index, and one for the consumer index. Once we have the next index, there is another potential race condition in who finishes adding or removing the next element first.  The actual copying of data must also be done under protection of mutual exclusion.
 
 ### Dynamically sized queue
 
