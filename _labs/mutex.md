@@ -517,10 +517,6 @@ The parent executable will try to run the child, which means we have a project d
 
 Since the parent will try to launch the child process, it also needs to know how to find it.  In Xcode, all targets are built in the same path by default, and this path is set as the working directory.  Thus, our two programs will be able to find each other using the relative path names `"./system_logger_child"` and `"./system_logger_parent"` -- note the `"./"` at the beginning which tells our programs to search the current working directory.
 
-#### Multiple Dependent Projects on Other IDEs
-
-For other IDEs and operating systems, I leave it up to you to determine how to compile multiple executables, set up dependencies, and change the output and working directories.  If using CMake to generate your projects (e.g. for Xcode), then the provided `CMakeLists.txt` is already configured to set up these properties for you.
-
 ### Writing the System Logger
 
 Much of the code for the system logger is provided for you.  The *child* process accepts three arguments from the command-line in the `argv` array: a name, a log-file path, and a number of messages to print (**Note:** the zeroeth entry in `argv` is always the executable name, so `argc` actually has a value of 4).  The main method parses the inputs and runs the logger client function `run_logger`.  The logger then prints a number of messages, both to the log file and to standard output, at random time intervals.

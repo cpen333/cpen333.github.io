@@ -48,7 +48,7 @@ double compute_acceleration(double v0, double t0, double v1, double t1);
 double compute_acceleration(double f, double m);
 ```
 
-If you need to brush-up on your 1D mechanics: position, velocity, accelration and force are related through
+If you need to brush-up on your 1D mechanics: position, velocity, acceleration, and force are related through
 
 $$v = \frac{dx}{dt} \approx \frac{x_1-x_0}{t_1-t_0}$$
 
@@ -56,9 +56,11 @@ $$a = \frac{dv}{dt} \approx \frac{v_1-v_0}{t_1-t_0}$$
 
 $$f = m a$$
 
-Note that we have a couple pairs of functions with the exact same name, but with a different number of arguments.  This is called *function overloading*, and is allowed in C\+\+ as long as either the number of arguments or the types of the arguments differ.  The compiler will figure out which function to use based on what you call it with.
+By re-arranging the above approximations, and by taking $$\{v, a, f\}$$ to be evaluated at time $$t_0$$, we can estimate the "next" position and velocity based on the current state $$\{x_0, v_0, a_0\}$$.  
 
-**Note:** Normally, you would only *declare* the functions in the `physics.h` file and put the implementation in a separate `physics.cpp` file.  However, since these methods are quite short, you may wish to put the implementation directly in the header.  In order to prevent "multiple definition" errors, however, you will need to mark the functions as `inline` (i.e. `inline double compute_position(...)`).
+In the our physics library declarations, we have a couple pairs of functions with the exact same name but a different number of arguments.  This is called *function overloading*, and is allowed in C\+\+ as long as either the number of arguments or the types of the arguments differ.  The compiler will figure out which function to use based on what you call it with.
+
+**Note:** Normally, you would only *declare* the functions in the `physics.h` file and put the implementation in a separate `physics.cpp` file.  However, since these methods are quite short, you may wish to put the implementation directly in the header.  **In order to prevent "multiple definition" errors, however, you will need to mark the functions as `inline` (i.e. `inline double compute_position(...)`).**
 
 ### Q2: A simple car simulator
 
@@ -121,7 +123,7 @@ There's a lot to digest in the above code if you have never used stream operator
 - `std::cin`: reads from standard input
 - `std::cout`: writes to standard output
 
-We also see the stream operators `<<` and `>>`.  The first *sends* data into the stream, and the second *reads* data from the stream.  The advantage of stream operators over your standard `printf`/`scanf` is that they auto-detect the variable type and format it appropriately.  In the code above, we read both doubles and an integer using the same operator.  You can also write your own versions of the operators for custom classes (we will see this in Part 2).
+We also see the stream operators `<<` and `>>`.  The first *writes* data into the stream, and the second *reads* data from the stream.  The advantage of stream operators over your standard `printf`/`scanf` is that they auto-detect the variable type and format it appropriately.  In the code above, we read both doubles and an integer using the same operator.  You can also write your own versions of the operators for custom classes (we will see this in Part 2).
 
 The `std::endl` operator adds an end-of-line character at the end of the stream, and "flushes" the output so everything gets printed to the terminal.
 
@@ -146,7 +148,6 @@ We are now going to modify our car simulator, encapsulating some of the function
 ### Q1: Object-Oriented implementation of the simulator
 
 A `State` consists of a position, velocity, acceleration, and time.  We want these attributes to be **public** so they can be accessed directly.  We will also give the state a `set(...)` method so we can easily set all the attributes in one go.
-
 
 A `Car` has a model name, mass, maximum engine force, and drag area.  The car will also have a `state` associated with it.  We'll give the car the following methods:
 ```cpp
@@ -176,21 +177,6 @@ We will start by creating the `State` class that will hold the car's position, v
 1. Create a new file called `State.h`.  In this file, implement the basic class according to the class diagram in the previous section. Since this is a small class, we will put the entire class implementation within the header file.  You may wish to use *include guards* to prevent the state definition from being included multiple times.
 2. Create a new main program in a separate source file that creates an *instance* of a `State`.  Call the `set(...)` function then print out all the values of the state object to make sure it's working properly.  What happens if you print the values before calling `set(...)`?
 3. Add a default constructor that initializes everything in the state to zero, and an overloaded constructor that allows you to initialize the member variables.
-4. Rather than manually printing out the state information, we will overload the *stream* operator.  Below your `State` class, add the following:<br/><br/>
-   ```cpp
-   class State {
-      ...   
-   };
-
-   // prints out a State class information
-   inline std::ostream& operator<<(std::ostream& os, State& state) {  
-      os << "t: " << state.time << ", x: " << state.position
-         << ", v: " << state.velocity << ", a: " << state.acceleration;
-      return os;
-   }  
-
-   ```
-   This allows us to use `std::cout << state << std::endl` to print out all our state's information.  We were able to access the state's member variables directly because they are declared as **public**.  If they aren't, you will have to use *accessor methods* to get the desired information (or declare the method as a `friend`, but that is beyond the scope of this course).  Since this function is defined in the header (as opposed to only being *declared*), we need to mark it as `inline`.  This only applies to stand-alone functions, not classes or member functions.
 
 #### Creating the `Car` class
 
@@ -199,10 +185,9 @@ Next we will create the `Car` class, which will do most of the work for driving.
 1. Create a new file called `Car.h`.  In this file, complete the class *declaration*: declare all the necessary public/private member variables and functions, but do not write implementations in the header.  Note that you may need more variables than what appears in the class diagram.  Since the class diagram leaves some things unspecified, it is up to you to fill in the details however you like.
 2. Create a new file called `Car.cpp`.  In this file, write all the implementation details for the member functions.  If you're not sure how to do this, check the [class notes]({{site.url}}/lectures/cplusplus/#separating-classes-into-header-and-source-files).<br/>
 **Notes:**
-  - To use `std::string`, you will have to include the C\+\+ header `<string>`. If you've never used the `std::string` class before, it acts a bit like c-strings (`char*`), but is an object that has member functions for computing things like the length.
+  - To use `std::string`, you will have to include the C\+\+ header `<string>`. If you've never used the `std::string` class before, it acts a bit like c-strings (`char[]`), but is an object that has member functions for computing things like the length.
   - You should use the `physics.h` library you developed in Part 1 inside the `drive(...)` function implementation.
   - The car's state should be initialized to zero on construction
-3. Override the *stream* operator for your `Car` class to print some of its internal details, and its current state.
 
 #### Creating the simulator
 
@@ -336,4 +321,4 @@ Whenever you create an instance of a class like you would any other primitive va
 
 ## Submitting Your Lab
 
-You must demonstrate your completed lab to one of the TAs during a lab session.  He or she may ask you some questions about your work to test your understanding.  Each lab is graded out of 5, and is due by the end of the following lab period (i.e. Lab 1 is due by the end of the Lab 2 time-slot).
+You must demonstrate your completed lab to one of the TAs during one of the lab sessions.  He or she may ask you some questions about your work to test your understanding.  Each lab is graded out of 5, and is due by the end of the following lab period (i.e. Lab 1 is due by the end of the Lab 2 time-slot).

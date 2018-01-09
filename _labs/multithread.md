@@ -3,7 +3,7 @@ layout: lab
 title:  Lab 2 - Multi-Threading
 date:   2017-09-14 12:00:00
 authors: [C. Antonio Sánchez]
-categories: [labs, threads, multithread, quicksort, monte carlo, integration]
+categories: [labs, threads, multithread, quicksort, monte carlo]
 usemath: true
 
 ---
@@ -71,7 +71,7 @@ int main() {
   return 0;
 }
 ```
-In the above, rather than working with an array, we are using an `std::vector<int>`.  Vectors are very much like arrays, except they are *objects*, they store the number of elements, and they can be resized.  Just like with an array, we can access individual elements of a vector using the `[]` operator, e.g. `int x = v[0]`.  For more details on the vector class, see the [documentation](http://en.cppreference.com/w/cpp/container/vector). If you need a reminder of the implementation details of the QuickSort algorithm, feel free to have a look at the page on [Wikipedia](https://en.wikipedia.org/wiki/Quicksort).
+In the above, rather than working with an array, we are using a `std::vector<int>`.  Vectors are very much like arrays, except they are *objects*, they store the number of elements, and they can be resized.  Just like with an array, we can access individual elements of a vector using the `[]` operator, e.g. `int x = v[0]`.  For more details on the vector class, see the [documentation](http://en.cppreference.com/w/cpp/container/vector). If you need a reminder of the implementation details of the QuickSort algorithm, feel free to have a look at the page on [Wikipedia](https://en.wikipedia.org/wiki/Quicksort).
 
 
 ### Testing your algorithm
@@ -291,50 +291,3 @@ Now are you seeing a speed-up?  With so few threads, you can increase the number
 1. What have you learned in terms of splitting up work between threads?
 2. What implications does this have when designing concurrent code?
 3. How many samples do you *think* you will need for an accuracy of 7 decimal places?
-
-### Monte-Carlo integration
-
-One very common application of Monte-Carlo methods is numerical integration.  Consider some function $$f(x)$$ defined over some volume $$V$$.  How can we pose the integral of this function in a random sampling framework?
-
-The most basic assumption we can make when approximating an integral is that the function is constant over the entire volume.  In such a case, the integral becomes
-
-$$\int_V\,f(x)\,dx \approx \mathrm{vol}(V) f(x)$$
-
-Therefore, if we randomly select an $$\hat{x}$$ from somewhere within the volume, we have a naive estimate of the integral: $$\mathrm{vol}(V) f(\hat{x})$$.  If we take a different sample, we would get a different rough estimate of the integral.  Thus, to converge to the true solution, all we need to do is take a ton of samples and average all our integral estimates together:
-
-$$\int_V\,f(x)\,dx \approx \frac{1}{N}\sum_{i=1}^N\mathrm{vol}(V) f(\hat{x}_i)$$
-
-
-#### Centre of mass computation
-
-In this final problem, we are going to use Monte-Carlo integration to estimate the centre of mass of a unit sphere (radius 1, centred at the origin) with a spatially varying density, $$\rho$$.  Recall that the centre of mass is defined as $$\mathbf{c} = (c_x, c_y, c_z)$$ with
-
-$$ c_x = \int_V\, x\,\rho(\mathbf{x}) d\mathbf{x}\; /\; \int_V\,\rho(\mathbf{x}) d\mathbf{x},$$
-
-$$ c_y = \int_V\, y\,\rho(\mathbf{x}) d\mathbf{x}\; /\; \int_V\,\rho(\mathbf{x}) d\mathbf{x},$$
-
-$$ c_z = \int_V\, z\,\rho(\mathbf{x}) d\mathbf{x}\; /\; \int_V\,\rho(\mathbf{x}) d\mathbf{x}.$$
-
-To apply Monte-Carlo integration within the sphere, we have three options:
-
-1. generate random samples directly within the sphere using spherical coordinates
-2. generate random samples within a bounding cube, and if they happen to fall outside the sphere, reject them and try again
-3. extend our density function to a bounding cube such that
-
-   $$ \rho_{\mathrm{cube}} = \begin{cases}\rho & \text{if }\mathbf{x}\in V\\ 0 & \text{otherwise}\end{cases}$$
-
-   We could then integrate the new density, $$\rho_{\mathrm{cube}}$$ over the bounding cube, which is a bit easier.
-
-Write a program to compute the centre of mass of a unit sphere with the following densities:
-
-- Density 1: $$\quad\rho(\mathbf{x}) = \exp^{-\|\mathbf{x}\|^2}$$
-- Density 2: $$\quad\rho(\mathbf{x}) = \mathrm{abs}(x + y + z)$$
-- Density 3: $$\quad\rho(\mathbf{x}) = (x-1)^2 + (y-2)^2 + (z-3)^2$$
-
-You may find some methods defined in `<cmath>` useful.
-
-#### Questions
-
-1. How did you divide the problem to take advantage of concurrency?
-2. How did you implement the density function?  Did you make use of code re-use?
-3. Did you test your program to make sure it was computing the integrals correctly?  If not, how might you do that?
