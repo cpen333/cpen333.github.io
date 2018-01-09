@@ -102,7 +102,7 @@ We can extend the single-element solution to instead use a circular buffer.  Thi
 
 In using the circular buffer, we need to keep track of the next position to write to, as well as the next position to read from.  This introduces two index variables: one for the next producer, and one for the next consumer.  
 
-Since there is more than one slot, it may be possible that two producers/consumers attempt to add/remove an item to/from the queue at the same time, which could lead to a race condition in acquiring the next index.  Therefore we need to protect access to the indices using mutual exclusion.  This introduces two mutexes: one for the producer index, and one for the consumer index. Once we have the next index, there is another potential race condition in who finishes adding or removing the next element first.  The actual copying of data must also be done under protection of mutual exclusion.
+Since there is more than one slot, it may be possible that two producers/consumers attempt to add/remove an item to/from the queue at the same time, which could lead to a race condition in acquiring the next index.  Therefore we need to protect access to the indices using mutual exclusion.  This introduces two mutexes: one for the producer index, and one for the consumer index. Once we have the next index, there is another potential race condition in who finishes adding or removing the next element first, so the actual copying of data must also be done under protection of mutual exclusion.
 
 ### Dynamically sized queue
 
