@@ -17,8 +17,6 @@ Before beginning, you will be asked to read and sign a [Take-Home Midterm Agreem
 
 Submissions will be accepted through UBC Connect.  The deadline listed on Connect is final.  You will have at least 48 hours from the time the midterm is posted to complete and submit your exam solutions.  Late entries will not be graded.
 
-After the midterm, there is an optional exit survey to let us know what you thought about the midterm: was it too hard? too long? too wordy? too fun?  This is for us to get your perspective so we have more context when grading your submissions.
-
 Good luck!
 
 {% include toc.html %}
@@ -409,14 +407,4 @@ If you are having trouble either digitally signing the agreement form, or scanni
 - Create a new text file with a declaration that you have read the form and have adhered to all terms
 - Include your name, student #, and email address
 
-## Exit Survey
-
 Congratulations on finishing the take-home midterm for CPEN 333 -- System Software Engineering!
-
-Due to request, we have prepared an exit survey for this take-home midterm.  The purpose of the survey is to help us teaching staff gauge the difficulty of the midterm from *your* perspective.
-
-Participation is entirely optional, and unless you choose to reveal your identity, all responses will be kept completely anonymous, even from us.
-
-Any information you *do* provide may help us to put your collective performance in perspective and to adjust content going forward.
-
-[https://survey.ubc.ca/s/cpen333/midterm/](https://survey.ubc.ca/s/cpen333/midterm/)
